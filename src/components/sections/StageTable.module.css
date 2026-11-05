@@ -1,0 +1,120 @@
+.table {
+  border: var(--stroke-1) solid var(--card-border);
+  border-radius: var(--radius-xl);
+  background: var(--card-bg);
+  overflow: hidden;
+}
+
+/* В макете обводка внутри блока: крайние строки заходят под неё */
+.table > :first-child {
+  margin-top: calc(var(--stroke-1) * -1);
+}
+
+.table > :last-child {
+  margin-bottom: calc(var(--stroke-1) * -1);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 416px 184px minmax(0, 1fr) 240px;
+  column-gap: var(--space-24);
+  align-items: center;
+  padding: calc(var(--space-24) - var(--stroke-1)) var(--space-32) var(--space-24);
+  border-top: var(--stroke-1) solid var(--border-default);
+}
+
+.withPrice {
+  grid-template-columns: 320px 160px minmax(0, 1fr) 200px 200px;
+}
+
+.head {
+  padding-block: var(--space-16);
+  border-top: 0;
+  background: var(--alpha-white-8);
+  color: var(--text-muted);
+}
+
+.group {
+  padding: calc(var(--space-12) - var(--stroke-1)) var(--space-32) var(--space-12);
+  border-top: var(--stroke-1) solid var(--border-default);
+  background: var(--alpha-white-8);
+  color: var(--text-muted);
+}
+
+.stage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  min-width: 0;
+}
+
+.node {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-control-40);
+  height: var(--size-control-40);
+  border: var(--stroke-1) solid var(--border-strong);
+  border-radius: var(--radius-full);
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+
+.row[data-accent] .node {
+  border-color: var(--step-payment);
+  background: var(--step-payment);
+  color: var(--text-on-accent);
+}
+
+.title,
+.term {
+  color: var(--text-primary);
+}
+
+.result,
+.price,
+.pay {
+  color: var(--text-secondary);
+}
+
+.row[data-accent] .pay {
+  color: var(--step-payment);
+}
+
+@media (max-width: 1199px) {
+  .row {
+    grid-template-columns: minmax(0, 1.8fr) minmax(0, 0.8fr) minmax(0, 1.5fr) minmax(0, 1fr);
+    column-gap: var(--space-16);
+    padding-inline: var(--space-24);
+  }
+
+  .withPrice {
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 0.8fr) minmax(0, 1.2fr) minmax(
+        0,
+        0.9fr
+      ) minmax(0, 0.8fr);
+  }
+
+  .group {
+    padding-inline: var(--space-24);
+  }
+}
+
+@media (max-width: 767px) {
+  .row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-8);
+    padding: calc(var(--space-20) - var(--stroke-1)) var(--space-16) var(--space-20);
+  }
+
+  .head {
+    display: none;
+  }
+
+  .group {
+    padding-inline: var(--space-16);
+  }
+}

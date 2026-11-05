@@ -1,0 +1,96 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  border: var(--stroke-1) solid transparent;
+  border-radius: var(--radius-md);
+  font-size: var(--fs-label-16);
+  line-height: var(--lh-label-16);
+  font-weight: var(--fw-medium);
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-out),
+    border-color var(--motion-duration-fast) var(--motion-ease-out),
+    color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.sizeS {
+  font-size: var(--fs-label-14);
+  line-height: var(--lh-label-14);
+  min-height: var(--size-control-40);
+  padding-inline: var(--space-16);
+}
+
+.sizeM {
+  min-height: var(--size-control-48);
+  padding-inline: var(--space-20);
+}
+
+.sizeL {
+  min-height: var(--size-control-56);
+  padding-inline: var(--space-24);
+}
+
+.fill {
+  width: 100%;
+  white-space: normal;
+}
+
+.primary {
+  background: var(--button-primary-bg);
+  border-color: var(--button-primary-border);
+  color: var(--button-primary-text);
+}
+
+.primary:hover {
+  background: var(--button-primary-bg-hover);
+  border-color: var(--button-primary-bg-hover);
+}
+
+.primary:active {
+  background: var(--button-primary-bg-pressed);
+  border-color: var(--button-primary-bg-pressed);
+}
+
+.secondary {
+  background: var(--button-secondary-bg);
+  border-color: var(--button-secondary-border);
+  color: var(--button-secondary-text);
+}
+
+.secondary:hover {
+  background: var(--button-secondary-bg-hover);
+}
+
+.secondary:active {
+  background: var(--button-secondary-bg-pressed);
+}
+
+/* Ghost без подложки в покое, чтобы не давать белую плашку на surface/muted */
+.ghost {
+  background: transparent;
+  color: var(--button-ghost-text);
+}
+
+.ghost:hover {
+  background: var(--button-ghost-bg-hover);
+}
+
+.ghost:active {
+  background: var(--button-ghost-bg-pressed);
+}
+
+.button:disabled {
+  background: var(--surface-muted);
+  border-color: var(--surface-muted);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+.ghost:disabled {
+  background: transparent;
+  border-color: transparent;
+}

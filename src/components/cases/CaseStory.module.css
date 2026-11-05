@@ -1,0 +1,43 @@
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.text {
+  color: var(--text-secondary);
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.point {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+}
+
+.marker {
+  color: var(--icon-accent);
+}
+
+.pointText {
+  flex: 1 1 0;
+  min-width: 0;
+  color: var(--text-primary);
+}
+
+@media (max-width: 767px) {
+  .block {
+    gap: var(--space-16);
+  }
+}

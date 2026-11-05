@@ -1,0 +1,32 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.photo {
+  position: relative;
+  height: 416px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.name,
+.quote {
+  color: var(--text-primary);
+}
+
+.role {
+  color: var(--text-secondary);
+}

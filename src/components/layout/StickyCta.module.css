@@ -1,0 +1,32 @@
+.bar {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 30;
+    display: block;
+    padding: var(--space-16) var(--page-pad);
+    padding-bottom: calc(var(--space-16) + env(safe-area-inset-bottom));
+    border-top: var(--stroke-1) solid var(--border-default);
+    background: var(--surface-raised);
+    box-shadow: var(--shadow-m);
+    visibility: hidden;
+    transform: translateY(100%);
+    transition:
+      transform var(--motion-duration-base) var(--motion-ease-in),
+      visibility var(--motion-duration-base);
+  }
+
+  .visible {
+    visibility: visible;
+    transform: translateY(0);
+    transition:
+      transform var(--motion-duration-base) var(--motion-ease-out),
+      visibility 0s;
+  }
+}

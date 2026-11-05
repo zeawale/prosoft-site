@@ -1,0 +1,21 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.neutral,
+.accent {
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-sm);
+}
+
+.neutral {
+  background: var(--surface-muted);
+  color: var(--text-secondary);
+}
+
+.accent {
+  background: var(--surface-brand-soft);
+  color: var(--text-accent);
+}

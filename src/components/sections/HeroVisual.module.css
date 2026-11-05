@@ -1,0 +1,33 @@
+.visual {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--surface-page);
+}
+
+.media,
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.video {
+  opacity: 0;
+  transition: opacity var(--motion-duration-base) var(--motion-ease-out);
+}
+
+.video[data-ready] {
+  opacity: 1;
+}
+
+/* Правый край кнопки совпадает с правым краем контента 1312 */
+.pause {
+  position: absolute;
+  bottom: var(--space-32);
+  right: max(var(--space-64), calc((100% - var(--container)) / 2));
+  z-index: 1;
+}

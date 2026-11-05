@@ -1,0 +1,116 @@
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-48);
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-24) var(--space-48);
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.factLabel {
+  color: var(--text-secondary);
+}
+
+.factValue {
+  color: var(--text-primary);
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--space-32) - var(--stroke-1)) calc(var(--space-40) - var(--stroke-1));
+  border: var(--stroke-1) solid var(--card-border);
+  border-radius: var(--radius-xl);
+  background: var(--card-bg);
+}
+
+.head,
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px 320px;
+  column-gap: var(--space-32);
+  border-bottom: var(--stroke-1) solid var(--border-default);
+}
+
+.head {
+  padding-bottom: calc(var(--space-16) - var(--stroke-1));
+}
+
+.row {
+  align-items: center;
+  padding-block: var(--space-24) calc(var(--space-24) - var(--stroke-1));
+}
+
+.headMuted,
+.before {
+  color: var(--text-muted);
+}
+
+.headAccent,
+.after {
+  color: var(--surface-brand);
+}
+
+.what {
+  color: var(--text-primary);
+}
+
+@media (max-width: 1199px) {
+  .head,
+  .row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+  }
+}
+
+/* На телефоне три колонки не помещаются: подписи уходят в строки */
+@media (max-width: 767px) {
+  .intro {
+    gap: var(--space-32);
+  }
+
+  .table {
+    padding: calc(var(--space-20) - var(--stroke-1));
+    border-radius: var(--radius-lg);
+  }
+
+  .head {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-12);
+    padding-block: var(--space-20) calc(var(--space-20) - var(--stroke-1));
+  }
+
+  .head + .row {
+    padding-top: 0;
+  }
+
+  .row:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .before::before,
+  .after::before {
+    content: attr(data-label);
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--fs-label-12);
+    line-height: var(--lh-label-12);
+    font-weight: var(--fw-medium);
+    letter-spacing: 0;
+    color: var(--text-muted);
+  }
+}

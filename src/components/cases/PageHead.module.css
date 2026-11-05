@@ -1,0 +1,32 @@
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  max-width: 864px;
+}
+
+/* Отступы ссылки-крошки из кадра: в общем Breadcrumbs их нет */
+.crumbs {
+  padding-block: var(--space-4) var(--space-2);
+}
+
+.title {
+  color: var(--text-primary);
+}
+
+.lead {
+  max-width: 640px;
+  color: var(--text-secondary);
+}
+
+/* На телефоне h1 — Heading/H2, как в PageHero. Два класса: глобальный .display-48 той же силы */
+@media (max-width: 767px) {
+  .head .title {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: -0.015em;
+    /* «специализированной» на 320 шире колонки. Нет словаря переносов: рвём по букве */
+    hyphens: auto;
+    overflow-wrap: anywhere;
+  }
+}

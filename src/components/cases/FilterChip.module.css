@@ -1,0 +1,21 @@
+.chip,
+.selected {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--size-control-40);
+  padding: calc(var(--space-8) - var(--stroke-1)) calc(var(--space-16) - var(--stroke-1));
+  border: var(--stroke-1) solid var(--border-default);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  text-align: left;
+  transition:
+    color var(--motion-duration-fast) var(--motion-ease-out),
+    background-color var(--motion-duration-fast) var(--motion-ease-out),
+    border-color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.selected {
+  border-color: var(--border-accent);
+  background: var(--surface-brand-soft);
+  color: var(--text-accent);
+}

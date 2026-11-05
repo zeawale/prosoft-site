@@ -1,0 +1,122 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  width: 100%;
+  text-align: left;
+}
+
+.sizeL {
+  height: 400px;
+}
+
+.sizeM {
+  height: 284px;
+}
+
+.thumb {
+  position: relative;
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding: var(--space-24);
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--surface-inverse);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.cover,
+.bottom {
+  position: relative;
+}
+
+.cover {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.source {
+  color: var(--text-accent-on-inverse);
+}
+
+.title,
+.speakerName {
+  color: var(--text-on-accent);
+}
+
+.bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-16);
+}
+
+.speaker {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  min-width: 0;
+}
+
+.play {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-full);
+  background: var(--button-primary-bg);
+  color: var(--icon-on-accent);
+  transition: background-color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.card:hover .play {
+  background: var(--button-primary-bg-hover);
+}
+
+.duration {
+  flex: none;
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-sm);
+  background: var(--surface-page);
+  color: var(--text-primary);
+}
+
+.caption {
+  color: var(--text-secondary);
+}
+
+/* В кадре телефона карточка 192: титул и кнопка в неё не входят, высота по содержимому */
+@media (max-width: 767px) {
+  .sizeL,
+  .sizeM {
+    height: auto;
+  }
+
+  .thumb {
+    flex: none;
+    min-height: 192px;
+  }
+
+  .sizeL.keepHeight {
+    height: 400px;
+  }
+
+  .sizeM.keepHeight {
+    height: 284px;
+  }
+
+  .keepHeight .thumb {
+    flex: 1 1 0;
+    min-height: 0;
+  }
+}

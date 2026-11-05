@@ -1,0 +1,30 @@
+/* В этой секции макета ссылка стоит по центру шапки, а не по нижнему краю */
+.head > div {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-32);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 671fr) minmax(0, 609fr);
+  gap: var(--grid-gutter);
+}
+
+.cases {
+  display: grid;
+  min-width: 0;
+}
+
+.tag {
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-sm);
+  background: var(--surface-brand-soft);
+  color: var(--text-accent);
+}
+
+@media (max-width: 767px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

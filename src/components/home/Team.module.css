@@ -1,0 +1,11 @@
+.row {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+}

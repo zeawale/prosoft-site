@@ -1,0 +1,54 @@
+.webinar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  min-width: 0;
+}
+
+.about {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-20);
+  padding: var(--space-32);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+
+.intro {
+  color: var(--text-secondary);
+}
+
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.point {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-16);
+}
+
+.time {
+  flex: none;
+  width: 48px;
+  color: var(--text-accent);
+}
+
+.label {
+  flex: 1 1 0;
+  min-width: 0;
+  color: var(--text-primary);
+  transition: color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+a.point:hover .label {
+  color: var(--text-accent);
+}
+
+@media (max-width: 767px) {
+  .about {
+    padding: var(--space-20);
+  }
+}

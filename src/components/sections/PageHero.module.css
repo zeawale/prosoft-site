@@ -1,0 +1,127 @@
+.gapL,
+.gapM {
+  display: flex;
+  flex-direction: column;
+}
+
+.gapL {
+  gap: var(--space-96);
+}
+
+.gapM {
+  gap: var(--space-48);
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 720px;
+  overflow: hidden;
+}
+
+.visual {
+  position: absolute;
+  inset: 0;
+}
+
+/* Сетка лежит поверх ролика и не должна перехватывать кнопку паузы */
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--grid-gutter);
+  pointer-events: none;
+}
+
+.content {
+  grid-column: 1 / span 5;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+  padding-block: var(--space-32);
+  pointer-events: auto;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.title {
+  color: var(--text-primary);
+}
+
+.lead,
+.fact {
+  color: var(--text-secondary);
+}
+
+.next {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+}
+
+.facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+@media (max-width: 1199px) {
+  .content {
+    grid-column: 1 / span 7;
+  }
+}
+
+@media (max-width: 767px) {
+  /* Крошки на телефоне в кадрах 14, а не 13 из токенов */
+  .head {
+    --fs-body-s: 14px;
+  }
+
+  .stage {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-24);
+    min-height: 0;
+  }
+
+  .visual {
+    position: relative;
+    inset: auto;
+    height: 420px;
+  }
+
+  .grid {
+    display: block;
+  }
+
+  .content {
+    padding-block: 0;
+  }
+
+  /* На телефоне h1 — Heading/H2. Два класса: глобальный .display-48 той же силы */
+  .head .title {
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    letter-spacing: -0.015em;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  .actions > * {
+    width: 100%;
+  }
+}

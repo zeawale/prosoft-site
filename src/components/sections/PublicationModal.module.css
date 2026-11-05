@@ -1,0 +1,105 @@
+/* В макете у окна поле 32, у оболочки Modal 40 */
+.detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  margin: calc(var(--space-8) * -1);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.source {
+  color: var(--step-payment);
+}
+
+.title {
+  color: var(--text-primary);
+}
+
+.meta {
+  color: var(--text-muted);
+}
+
+.lead,
+.marker {
+  color: var(--text-secondary);
+}
+
+/* Шаг один на заголовок и строки, у каждого вида списка свой */
+.block,
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  gap: inherit;
+}
+
+.listText {
+  gap: var(--space-12);
+}
+
+.listTimecodes {
+  gap: var(--space-16);
+}
+
+.listDates {
+  gap: var(--space-20);
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.listDates .row {
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.listTimecodes .row {
+  align-items: center;
+}
+
+.marker {
+  flex: none;
+  width: 168px;
+}
+
+.text {
+  flex: 1 1 0;
+  min-width: 0;
+  color: var(--text-primary);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+}
+
+@media (max-width: 767px) {
+  .detail {
+    margin: 0;
+  }
+
+  .listTimecodes .row,
+  .listDates .row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+
+  .marker {
+    width: auto;
+  }
+
+  .text {
+    flex: none;
+  }
+}

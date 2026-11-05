@@ -1,0 +1,366 @@
+.viewer {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-32);
+}
+
+/* Лист документа: высота кадра 640, части отчёта меняются без скачка соседей */
+.sheet {
+  flex: 0 0 528px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  min-width: 0;
+  height: 640px;
+  padding: calc(var(--space-40) - var(--stroke-1));
+  border: var(--stroke-1) solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-m);
+}
+
+.sheetHead,
+.sheetFoot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+}
+
+.brand {
+  color: var(--text-primary);
+}
+
+.document {
+  color: var(--text-muted);
+}
+
+.sheetBody {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  animation: dissolve 200ms var(--motion-ease-out);
+}
+
+@keyframes dissolve {
+  from {
+    opacity: 0;
+  }
+}
+
+.sheetFoot {
+  padding-top: calc(var(--space-12) - var(--stroke-1));
+  border-top: var(--stroke-1) solid var(--border-default);
+  color: var(--text-muted);
+}
+
+.kicker {
+  color: var(--text-secondary);
+}
+
+.heading {
+  color: var(--text-primary);
+}
+
+.primary {
+  color: var(--text-primary);
+}
+
+.secondary {
+  color: var(--text-secondary);
+}
+
+.accent {
+  color: var(--text-accent);
+}
+
+/* В макете линии внутри высоты строки, поэтому у строк с линией отступ на 1 px меньше */
+.specRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  padding-block: var(--space-12) calc(var(--space-12) - var(--stroke-1));
+  border-bottom: var(--stroke-1) solid var(--border-default);
+}
+
+.specLabel {
+  flex: 0 0 128px;
+  color: var(--text-muted);
+}
+
+.specValue {
+  flex: 1 1 0;
+  min-width: 0;
+  color: var(--text-primary);
+}
+
+.totals {
+  display: flex;
+  gap: var(--space-20);
+}
+
+.total {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-12);
+  border-radius: var(--radius-md);
+  background: var(--surface-muted);
+}
+
+.totalValue {
+  color: var(--text-primary);
+}
+
+.totalLabel {
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+/* Таблицы листа */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.table th {
+  padding-block: var(--space-12) calc(var(--space-12) - var(--stroke-1));
+  border-bottom: var(--stroke-1) solid var(--border-strong);
+  color: var(--text-muted);
+  font: inherit;
+  text-align: left;
+}
+
+.table td {
+  border-bottom: var(--stroke-1) solid var(--border-default);
+  overflow-wrap: anywhere;
+}
+
+.table th + th,
+.table td + td {
+  padding-left: var(--space-16);
+}
+
+.findings td {
+  padding-block: var(--space-16) calc(var(--space-16) - var(--stroke-1));
+}
+
+.findings th:first-child {
+  width: 112px;
+}
+
+.findings th:last-child {
+  width: calc(72px + var(--space-16));
+}
+
+.table th.hours,
+.table td.hours {
+  text-align: right;
+}
+
+.table .totalRow td {
+  border-bottom-color: var(--border-strong);
+}
+
+.plan td {
+  padding-block: 10px calc(10px - var(--stroke-1));
+}
+
+.plan th:first-child {
+  width: 72px;
+}
+
+.plan th:last-child {
+  width: calc(128px + var(--space-16));
+}
+
+/* Лента этапов на листе плана */
+.lane {
+  display: flex;
+  gap: var(--space-20);
+}
+
+.stage {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.rail {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.node {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--step-node-active);
+}
+
+.line {
+  flex: 1 1 0;
+  height: var(--stroke-2);
+  background: var(--step-track);
+}
+
+.stage:last-child .line {
+  display: none;
+}
+
+.stageLabel {
+  color: var(--text-muted);
+}
+
+/* Вкладки */
+.tabs {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  border: var(--stroke-1) solid var(--card-border);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-out),
+    border-color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.tab:hover {
+  border-color: var(--border-strong);
+}
+
+.tab[data-active] {
+  flex: 1 1 0;
+  border-color: var(--border-accent);
+  background: var(--surface-brand-soft);
+}
+
+.tabButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  width: 100%;
+  padding: calc(var(--space-20) - var(--stroke-1));
+  border-radius: inherit;
+  text-align: left;
+}
+
+.tab[data-active] .tabButton {
+  align-items: flex-start;
+  padding-bottom: var(--space-16);
+}
+
+.num {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: var(--stroke-1) solid var(--border-strong);
+  border-radius: var(--radius-full);
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+
+.tabHead {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.tabTitle {
+  color: var(--text-primary);
+}
+
+.tabLead {
+  color: var(--text-secondary);
+}
+
+/* Содержимое раскрытой вкладки стоит под её текстом: 32 номер и 16 отступ */
+.inside {
+  padding: 0 calc(var(--space-20) - var(--stroke-1)) calc(var(--space-20) - var(--stroke-1))
+    calc(var(--space-20) - var(--stroke-1) + 48px);
+}
+
+.insideItem {
+  padding-block: calc(var(--space-16) - var(--stroke-1)) var(--space-16);
+  border-top: var(--stroke-1) solid var(--border-default);
+  color: var(--text-primary);
+}
+
+/* Планшет: лист и вкладки в одну колонку, как на телефоне */
+@media (max-width: 1199px) {
+  .viewer {
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .sheet {
+    flex: none;
+    height: auto;
+  }
+
+  .sheetBody {
+    flex: none;
+  }
+
+  .tab[data-active],
+  .tabs {
+    flex: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .sheet {
+    padding: calc(var(--space-24) - var(--stroke-1)) calc(var(--space-20) - var(--stroke-1));
+  }
+
+  /* 128 и 159 при ширине кадра 303: на 320 обе колонки сжимаются */
+  .specLabel {
+    flex: 0 1 128px;
+    min-width: 0;
+  }
+
+  .specValue {
+    flex: 1 1 159px;
+  }
+
+  .totals {
+    flex-wrap: wrap;
+  }
+
+  .total {
+    flex: 1 1 80px;
+  }
+
+  /* 112 при ширине кадра 303: на 320 первая колонка сжимается вместе со второй */
+  .findings th:first-child {
+    width: 37%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheetBody {
+    animation: none;
+  }
+}

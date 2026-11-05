@@ -1,0 +1,24 @@
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-touch-44);
+  height: var(--size-touch-44);
+  border-radius: var(--radius-md);
+  background: var(--gray-0);
+  color: var(--icon-default);
+  transition: background-color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.button:hover:not(:disabled) {
+  background: var(--button-ghost-bg-hover);
+}
+
+.button:active:not(:disabled) {
+  background: var(--button-ghost-bg-pressed);
+}
+
+.button:disabled {
+  color: var(--icon-muted);
+  cursor: default;
+}

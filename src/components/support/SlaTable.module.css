@@ -1,0 +1,131 @@
+/* Колонки кадра: первая на всё остальное, три по 192, между ними 32 */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.head th {
+  padding: 0 0 var(--space-12);
+  color: var(--text-muted);
+  font: inherit;
+  text-align: left;
+}
+
+.head th + th,
+.row td + td {
+  width: calc(192px + var(--space-32));
+  padding-left: var(--space-32);
+}
+
+.row td {
+  padding-block: calc(var(--space-16) - var(--stroke-1)) var(--space-16);
+  border-top: var(--stroke-1) solid var(--border-default);
+}
+
+.request,
+.value {
+  color: var(--text-primary);
+}
+
+.value,
+.hours {
+  display: block;
+}
+
+.hours {
+  color: var(--text-secondary);
+}
+
+/* Подписи ячеек нужны, только когда шапка таблицы скрыта */
+.cellLabel {
+  display: none;
+  color: var(--text-muted);
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-32);
+  padding: var(--space-32);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+
+.stat {
+  flex: 0 1 416px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.priceValue {
+  color: var(--text-primary);
+}
+
+.note {
+  color: var(--text-secondary);
+}
+
+/* Планшет: шапку прячем, значения встают в три колонки под текстом обращения */
+@media (max-width: 1199px) {
+  .table,
+  .table tbody {
+    display: block;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-12) var(--grid-gutter);
+    padding: calc(var(--space-16) - var(--stroke-1)) var(--space-16) var(--space-16);
+    border-top: var(--stroke-1) solid var(--border-default);
+  }
+
+  .row td,
+  .row td + td {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    width: auto;
+    padding: 0;
+    border: 0;
+  }
+
+  .row td:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .cellLabel {
+    display: block;
+  }
+}
+
+@media (max-width: 767px) {
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .price {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .stat {
+    flex: none;
+  }
+
+  /* В кадре телефона цена Number/M: Number/L не помещается в 279 */
+  .priceValue {
+    font-size: var(--fs-number-m);
+    line-height: var(--lh-number-m);
+    letter-spacing: -0.01em;
+  }
+}

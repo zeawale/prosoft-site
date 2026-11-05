@@ -1,0 +1,78 @@
+/* Расстояние между секциями и до подвала задаёт обёртка, а не сами секции */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+  padding-bottom: var(--section-gap);
+}
+
+.band {
+  padding-block: var(--section-gap);
+  background: var(--surface-muted);
+}
+
+.formatTop {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.principles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  max-width: 528px;
+}
+
+.principle {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+  color: var(--text-primary);
+}
+
+.marker {
+  color: var(--icon-accent);
+}
+
+/* В этой секции макета ссылка стоит по центру шапки и на телефоне тоже */
+.proofHead > div {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-32);
+}
+
+.proofRow {
+  display: flex;
+  align-items: stretch;
+  gap: var(--space-32);
+}
+
+.proofCases {
+  flex: 0 0 752px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+@media (max-width: 1199px) {
+  .proofRow {
+    flex-direction: column;
+  }
+
+  .proofCases {
+    flex: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .formatTop {
+    gap: var(--space-24);
+  }
+
+  .proofRow,
+  .proofCases {
+    gap: var(--space-16);
+  }
+}

@@ -1,0 +1,7 @@
+/* Расстояние между секциями и до подвала задаёт обёртка, а не сами секции */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+  padding-bottom: var(--section-gap);
+}

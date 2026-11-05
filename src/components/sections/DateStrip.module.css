@@ -1,0 +1,156 @@
+.box {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-40);
+  padding: calc(var(--space-40) - var(--stroke-1));
+  border: var(--stroke-1) solid var(--card-border);
+  border-radius: var(--radius-xl);
+  background: var(--button-secondary-bg-hover);
+}
+
+.main,
+.next {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-16);
+}
+
+.label {
+  color: var(--text-secondary);
+}
+
+.mainDate,
+.mainTitle,
+.rowDate {
+  color: var(--text-primary);
+}
+
+.mainDate {
+  white-space: nowrap;
+}
+
+.source {
+  color: var(--text-muted);
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: calc(var(--space-16) - var(--stroke-1)) calc(var(--space-24) - var(--stroke-1));
+  border: var(--stroke-1) solid var(--border-default);
+  border-radius: var(--radius-lg);
+  background: var(--surface-page);
+}
+
+.rowText {
+  color: var(--text-secondary);
+}
+
+.mobile {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-16);
+  padding: var(--space-20) var(--page-pad);
+  border-radius: var(--radius-lg);
+  background: var(--date-bg);
+}
+
+.mobileTitle {
+  color: var(--text-primary);
+}
+
+.timeline {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.todayRow,
+.dateRow {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.todayRow {
+  align-items: center;
+}
+
+.tick {
+  width: 12px;
+  height: var(--stroke-2);
+  background: var(--date-marker);
+}
+
+.today {
+  color: var(--text-primary);
+}
+
+.dateRow {
+  align-items: flex-start;
+}
+
+/* Маркер 12×24 с кружком по центру: кольцо у будущей даты, точка у пройденной */
+.marker {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  margin-block: 6px;
+  border: var(--stroke-2) solid var(--border-warning);
+  border-radius: var(--radius-full);
+  background: var(--date-bg);
+}
+
+.dateRow[data-passed] .marker {
+  border-color: var(--date-marker);
+  background: var(--date-marker);
+}
+
+.dateLabel {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.date {
+  color: var(--date-text);
+}
+
+.dateText {
+  color: var(--text-secondary);
+}
+
+.dateRow[data-passed] .date,
+.dateRow[data-passed] .dateText {
+  color: var(--text-muted);
+}
+
+@media (max-width: 1199px) {
+  .box {
+    flex-direction: column;
+  }
+
+  .main,
+  .next {
+    flex: none;
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: flex;
+  }
+}

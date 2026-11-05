@@ -1,0 +1,92 @@
+.layout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-32);
+}
+
+.head {
+  flex: 0 0 416px;
+  min-width: 0;
+}
+
+.questions {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.item {
+  border-top: var(--stroke-1) solid var(--border-default);
+  interpolate-size: allow-keywords;
+}
+
+/* Высота раскрывается там, где браузер умеет ::details-content, остальные открывают сразу */
+.item::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size var(--motion-duration-base) var(--motion-ease-out),
+    content-visibility var(--motion-duration-base) allow-discrete;
+}
+
+.item[open]::details-content {
+  block-size: auto;
+}
+
+.question {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-24);
+  padding: calc(var(--space-24) - var(--stroke-1)) var(--space-16) var(--space-24);
+  list-style: none;
+  cursor: pointer;
+  color: var(--text-primary);
+  transition: color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.question::-webkit-details-marker {
+  display: none;
+}
+
+.question:hover {
+  color: var(--text-accent);
+}
+
+.questionText {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.iconRemove,
+.item[open] .iconAdd {
+  display: none;
+}
+
+.item[open] .iconRemove {
+  display: block;
+}
+
+.answer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  max-width: 720px;
+  padding: 0 var(--space-16) var(--space-24);
+}
+
+.paragraph {
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1199px) {
+  .layout {
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  .head,
+  .questions {
+    flex: none;
+    width: 100%;
+  }
+}

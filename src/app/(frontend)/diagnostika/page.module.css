@@ -1,0 +1,6 @@
+/* Квиз стоит вплотную к подвалу, поэтому отступа снизу у страницы нет */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+}

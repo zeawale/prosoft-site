@@ -1,0 +1,76 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-32);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  padding: calc(var(--space-32) - var(--stroke-1));
+  border: var(--stroke-1) solid var(--card-border);
+  border-radius: var(--radius-xl);
+  background: var(--card-bg);
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--surface-badge);
+}
+
+.icon {
+  color: var(--icon-default);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.title {
+  color: var(--text-primary);
+}
+
+.systems {
+  color: var(--text-accent);
+}
+
+.text {
+  color: var(--text-secondary);
+}
+
+/* Черта 3 px рядом с текстом: высота равна высоте строк */
+.result {
+  position: relative;
+  padding-left: calc(3px + var(--space-16));
+  color: var(--text-primary);
+}
+
+.result::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--date-marker);
+}
+
+@media (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--grid-gutter);
+  }
+}
+
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

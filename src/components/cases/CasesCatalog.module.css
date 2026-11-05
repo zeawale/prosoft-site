@@ -1,0 +1,127 @@
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  padding: var(--space-24);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
+}
+
+.groupLabel {
+  flex: none;
+  width: 136px;
+  color: var(--text-secondary);
+}
+
+.chips {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.results {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+}
+
+.count {
+  color: var(--text-secondary);
+}
+
+/* Вид ссылки TextLink M: действие на месте, поэтому это кнопка */
+.reset {
+  flex: none;
+  display: inline-flex;
+  padding-block: var(--space-4) var(--space-2);
+  border-radius: var(--radius-xs);
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  color: var(--text-link);
+  transition: color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.reset:hover {
+  color: var(--text-link-hover);
+}
+
+.resetText {
+  padding-bottom: var(--space-2);
+  border-bottom: var(--stroke-1) solid var(--border-accent);
+  transition: border-color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.reset:hover .resetText {
+  border-bottom-color: transparent;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-32);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-24);
+  padding: var(--space-64);
+  border-radius: var(--radius-lg);
+  background: var(--surface-muted);
+  text-align: center;
+}
+
+.emptyTitle {
+  color: var(--text-primary);
+}
+
+.emptyText {
+  max-width: 560px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1199px) {
+  .grid {
+    gap: var(--grid-gutter);
+  }
+}
+
+@media (max-width: 767px) {
+  .filters {
+    gap: var(--space-24);
+    padding: var(--space-16);
+  }
+
+  .group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-12);
+  }
+
+  .groupLabel {
+    width: auto;
+  }
+
+  .chips {
+    flex: none;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+
+  .empty {
+    padding: var(--space-32) var(--space-20);
+  }
+}

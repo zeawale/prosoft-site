@@ -1,0 +1,20 @@
+.dark {
+  padding-block: var(--space-96);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+}
+
+/* Мобильные кадры секций стоят на десктопных значениях этих токенов, телефонные
+   значения из tokens.css в них не включены: возвращаем значения кадра */
+@media (max-width: 767px) {
+  .inner {
+    --fs-h5: 18px;
+    --fs-body-s: 14px;
+    --fs-number-s: 20px;
+    --lh-number-s: 28px;
+  }
+}

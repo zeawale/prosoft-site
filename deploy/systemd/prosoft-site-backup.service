@@ -1,0 +1,6 @@
+[Unit]
+Description=Бэкап базы и media ПРО-СОФТ
+
+[Service]
+Type=oneshot
+ExecStart=/srv/prosoft-site/deploy/backup.sh

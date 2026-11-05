@@ -1,0 +1,29 @@
+# Приложение ПРО-СОФТ: Next.js с Payload, слушает только localhost:3002,
+# снаружи его видно через nginx. Кладётся в /etc/systemd/system/.
+# Порты на сервере: 3000 — pm52.ru, 8787 — доска, 3002 — этот сайт.
+
+[Unit]
+Description=ПРО-СОФТ (Next.js + Payload)
+After=network.target
+
+[Service]
+Type=simple
+User=prosoft
+Group=prosoft
+WorkingDirectory=/srv/prosoft-site
+Environment=NODE_ENV=production
+Environment=NODE_OPTIONS=--no-deprecation
+# Через node напрямую, а не pnpm start: не зависим от того, куда corepack
+# положил pnpm, и сигнал остановки приходит самому Next
+ExecStart=/usr/bin/node node_modules/next/dist/bin/next start -H 127.0.0.1 -p 3002
+Restart=always
+RestartSec=5
+
+# Приложению нечего делать вне своей папки
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

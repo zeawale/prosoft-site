@@ -1,0 +1,342 @@
+/* ============================================================
+   ПРО-СОФТ — дизайн-токены
+   Источник: Figma, файл 0dXjHKn3lZVqQsk0GTi8tl, страница
+   «Design System · Foundations». Имена совпадают с переменными Figma.
+
+   Тёмная секция — класс .inverse: он переопределяет те же семантические
+   токены, как режим Color Semantic: Inverse в макете. Поэтому компонент не
+   знает, на каком фоне стоит: кнопка на тёмном сама становится оранжевой.
+
+   Размеры в px, не rem. Значения для телефона — блок @media в конце файла.
+   ============================================================ */
+
+:root {
+  /* ---------- Примитивы ---------- */
+  --gray-0: #ffffff;
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #5b6b80;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --gray-950: #020617;
+
+  --blue-50: #eef4fe;
+  --blue-100: #dbeafe;
+  --blue-200: #b9d2f7;
+  --blue-300: #8db0ea;
+  --blue-400: #5581cd;
+  --blue-500: #2f66c8;
+  --blue-600: #0e4cb9;
+  --blue-700: #0b3e98;
+  --blue-800: #082f75;
+  --blue-900: #062253;
+
+  --orange-50: #fef3e9;
+  --orange-100: #fde2c9;
+  --orange-200: #fbc593;
+  --orange-300: #f9a14e;
+  --orange-400: #ff8524;
+  --orange-500: #f77106;
+  --orange-600: #c2560a;
+  --orange-700: #a04607;
+  --orange-800: #7c3606;
+  --orange-900: #5a2805;
+
+  --green-50: #e7f3f0;
+  --green-600: #16786a;
+  --green-700: #0f6b5c;
+
+  --red-50: #fcebea;
+  --red-200: #f2b8b5;
+  --red-400: #e5675f;
+  --red-600: #b42318;
+  --red-800: #7a1810;
+
+  --alpha-white-8: #ffffff14;
+  --alpha-white-16: #ffffff29;
+  --alpha-white-24: #ffffff3d;
+  --alpha-white-32: #ffffff52;
+  --alpha-white-48: #ffffff7a;
+  --alpha-white-64: #ffffffa3;
+  --alpha-black-8: #0f172a14;
+  --alpha-black-16: #0f172a29;
+  --alpha-black-24: #0f172a3d;
+  --alpha-black-32: #0f172a52;
+  --alpha-black-48: #0f172a7a;
+  --alpha-black-64: #0f172aa3;
+
+  /* ---------- Семантика: поверхности ---------- */
+  --surface-page: #ffffff;
+  --surface-default: #ffffff;
+  --surface-muted: #f1f5f9;
+  --surface-raised: #ffffff;
+  --surface-brand: #0e4cb9;
+  --surface-brand-soft: #eef4fe;
+  --surface-accent: #0e4cb9;
+  --surface-accent-hover: #0b3e98;
+  --surface-accent-pressed: #082f75;
+  --surface-inverse: #062253;
+  --surface-overlay: #0f172a7a;
+  --surface-success-soft: #e7f3f0;
+  --surface-warning-soft: #fef3e9;
+  --surface-error-soft: #fcebea;
+  --surface-badge: #eef4fe;
+
+  /* ---------- Семантика: текст ---------- */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #5b6b80;
+  --text-accent: #0e4cb9;
+  --text-accent-on-inverse: #ff8524;
+  --text-link: #0e4cb9;
+  --text-link-hover: #0b3e98;
+  --text-on-accent: #ffffff;
+  --text-inverse: #ffffff;
+  --text-disabled: #94a3b8;
+  --text-warning: #a04607;
+  --text-error: #b42318;
+
+  /* ---------- Семантика: линии и иконки ---------- */
+  --border-default: #cbd5e1;
+  --border-strong: #5b6b80;
+  --border-accent: #0e4cb9;
+  --border-focus: #0e4cb9;
+  --border-warning: #c2560a;
+  --border-error: #b42318;
+  --border-inverse: #0b3e98;
+
+  --icon-default: #0f172a;
+  --icon-muted: #475569;
+  --icon-accent: #0e4cb9;
+  --icon-inverse: #ffffff;
+  --icon-on-accent: #ffffff;
+  --icon-warning: #c2560a;
+
+  /* ---------- Компоненты ---------- */
+  --button-primary-bg: #0e4cb9;
+  --button-primary-bg-hover: #0b3e98;
+  --button-primary-bg-pressed: #082f75;
+  --button-primary-text: #ffffff;
+  --button-primary-border: #0e4cb9;
+  --button-secondary-bg: #ffffff;
+  --button-secondary-bg-hover: #f1f5f9;
+  --button-secondary-bg-pressed: #e2e8f0;
+  --button-secondary-text: #0f172a;
+  --button-secondary-border: #0f172a;
+  --button-ghost-bg-hover: #f1f5f9;
+  --button-ghost-bg-pressed: #e2e8f0;
+  --button-ghost-text: #0e4cb9;
+
+  --input-bg: #ffffff;
+  --input-border: #5b6b80;
+  --input-border-focus: #0e4cb9;
+  --input-text: #0f172a;
+  --input-placeholder: #5b6b80;
+
+  --card-bg: #ffffff;
+  --card-border: #cbd5e1;
+
+  --nav-bg: #ffffff;
+  --nav-text: #0f172a;
+  --nav-text-active: #0e4cb9;
+
+  --step-track: #cbd5e1;
+  --step-node: #5b6b80;
+  --step-node-active: #0e4cb9;
+  --step-payment: #f77106;
+
+  --segment-bg: #f1f5f9;
+  --segment-bg-active: #ffffff;
+  --segment-text: #475569;
+  --segment-text-active: #0f172a;
+
+  --map-node-bg: #ffffff;
+  --map-node-border: #cbd5e1;
+  --map-node-active: #0e4cb9;
+
+  --quiz-option-bg: #ffffff;
+  --quiz-option-border: #cbd5e1;
+  --quiz-option-selected: #0e4cb9;
+
+  --date-bg: #eef4fe;
+  --date-text: #062253;
+  --date-marker: #f77106;
+
+  /* Тени Shadow/S и Shadow/M */
+  --shadow-s: 0 1px 2px var(--alpha-black-8), 0 2px 8px var(--alpha-black-8);
+  --shadow-m: 0 2px 4px var(--alpha-black-8), 0 8px 24px var(--alpha-black-16);
+
+  /* ---------- Шрифты ---------- */
+  --font-sans: 'Onest', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  --fs-display-72: 72px;
+  --lh-display-72: 76px;
+  --fs-display-48: 48px;
+  --lh-display-48: 52px;
+  --fs-h1: 40px;
+  --lh-h1: 48px;
+  --fs-h2: 32px;
+  --lh-h2: 40px;
+  --fs-h3: 24px;
+  --lh-h3: 32px;
+  --fs-h4: 20px;
+  --lh-h4: 28px;
+  --fs-h5: 18px;
+  --lh-h5: 24px;
+  --fs-h6: 16px;
+  --lh-h6: 24px;
+  --fs-body-l: 20px;
+  --lh-body-l: 32px;
+  --fs-body-m: 16px;
+  --lh-body-m: 24px;
+  --fs-body-s: 14px;
+  --lh-body-s: 20px;
+  --fs-body-xs: 13px;
+  --lh-body-xs: 20px;
+  --fs-label-16: 16px;
+  --lh-label-16: 24px;
+  --fs-label-14: 14px;
+  --lh-label-14: 20px;
+  --fs-label-13: 13px;
+  --lh-label-13: 20px;
+  --fs-label-12: 12px;
+  --lh-label-12: 16px;
+  --fs-label-11: 11px;
+  --lh-label-11: 16px;
+  --fs-number-l: 56px;
+  --lh-number-l: 64px;
+  --fs-number-m: 32px;
+  --lh-number-m: 40px;
+  --fs-number-s: 20px;
+  --lh-number-s: 28px;
+  --fs-number-xs: 16px;
+  --lh-number-xs: 24px;
+
+  /* ---------- Отступы и размеры ---------- */
+  --space-0: 0px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-64: 64px;
+  --space-80: 80px;
+  --space-96: 96px;
+  --space-120: 120px;
+  --space-160: 160px;
+
+  --radius-none: 0px;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  --stroke-1: 1px;
+  --stroke-2: 2px;
+
+  --size-control-40: 40px;
+  --size-control-48: 48px;
+  --size-control-56: 56px;
+  --size-touch-44: 44px;
+
+  /* ---------- Сетка ---------- */
+  --page-pad: 64px;
+  --grid-gutter: 32px;
+  --section-gap: 96px;
+  --header-h: 84px;
+  --header-h-compact: 64px;
+  /* 1440 макета минус два поля по 64 */
+  --container: 1312px;
+
+  /* ---------- Движение ---------- */
+  --motion-duration-fast: 150ms;
+  --motion-duration-base: 250ms;
+  --motion-duration-slow: 400ms;
+  --motion-duration-reveal: 800ms;
+  --motion-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-ease-in: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Режим Color Semantic: Inverse — тёмные секции и подвал */
+.inverse {
+  --surface-page: #062253;
+  --surface-default: #062253;
+  --surface-muted: #082f75;
+  --surface-raised: #082f75;
+  --surface-badge: #0b3e98;
+
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #8db0ea;
+  --text-link: #b9d2f7;
+  --text-link-hover: #ffffff;
+
+  --border-default: #0b3e98;
+  --border-strong: #5581cd;
+  --border-accent: #8db0ea;
+
+  --icon-default: #ffffff;
+  --icon-muted: #cbd5e1;
+  --icon-accent: #8db0ea;
+
+  --button-primary-bg: #f77106;
+  --button-primary-bg-hover: #ff8524;
+  --button-primary-bg-pressed: #c2560a;
+  --button-primary-text: #ffffff;
+  --button-primary-border: #f77106;
+  --button-secondary-bg: transparent;
+  --button-secondary-bg-hover: #ffffff14;
+  --button-secondary-bg-pressed: #ffffff29;
+  --button-secondary-text: #ffffff;
+  --button-secondary-border: #ffffff;
+  --button-ghost-bg-hover: #ffffff14;
+  --button-ghost-bg-pressed: #ffffff29;
+  --button-ghost-text: #b9d2f7;
+
+  --card-bg: #082f75;
+  --card-border: #0b3e98;
+
+  color: var(--text-primary);
+  background: var(--surface-page);
+}
+
+/* Планшет: сетка уже, размеры шрифтов как на десктопе */
+@media (max-width: 1199px) {
+  :root {
+    --page-pad: 32px;
+    --grid-gutter: 24px;
+    --section-gap: 80px;
+  }
+}
+
+/* Телефон: режим Mobile переменных макета */
+@media (max-width: 767px) {
+  :root {
+    --page-pad: 16px;
+    --grid-gutter: 16px;
+    --section-gap: 64px;
+    --header-h: 64px;
+
+    --fs-h5: 16px;
+    --fs-number-s: 16px;
+    --lh-number-s: 24px;
+    --fs-body-s: 13px;
+  }
+}

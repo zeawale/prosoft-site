@@ -1,0 +1,119 @@
+.carousel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-32);
+}
+
+.head > :first-child {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.controls {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+/* Вид ссылки TextLink M: действие на месте, поэтому это кнопка */
+.allLink {
+  display: inline-flex;
+  padding-block: var(--space-4) var(--space-2);
+  border-radius: var(--radius-xs);
+  font-size: var(--fs-body-m);
+  line-height: var(--lh-body-m);
+  color: var(--text-link);
+  white-space: nowrap;
+  transition: color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.allLink:hover {
+  color: var(--text-link-hover);
+}
+
+.allText {
+  padding-bottom: var(--space-2);
+  border-bottom: var(--stroke-1) solid var(--border-accent);
+}
+
+.allLink:hover .allText {
+  border-bottom-color: transparent;
+}
+
+.counter {
+  min-width: 60px;
+  text-align: right;
+  white-space: nowrap;
+  color: var(--text-muted);
+}
+
+.pager {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.cards,
+.all {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--space-32);
+}
+
+.cards {
+  grid-auto-rows: minmax(392px, auto);
+  animation: fade 300ms var(--motion-ease-out);
+}
+
+.all {
+  row-gap: var(--space-32);
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 1199px) {
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-16);
+  }
+
+  .head > :first-child {
+    flex: none;
+    width: 100%;
+  }
+
+  .cards,
+  .all {
+    column-gap: var(--grid-gutter);
+  }
+}
+
+@media (max-width: 999px) {
+  .cards,
+  .all {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+
+  .cards {
+    grid-auto-rows: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .head {
+    gap: 0;
+  }
+}

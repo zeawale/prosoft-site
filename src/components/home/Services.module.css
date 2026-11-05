@@ -1,0 +1,174 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-32);
+}
+
+/* .list в селекторе: глобальный .inverse задаёт свой фон той же силы */
+.list .card {
+  --title-hover: var(--text-accent);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-40);
+  min-height: 128px;
+  padding: calc(var(--space-32) - var(--stroke-1));
+  border: var(--stroke-1) solid var(--card-border);
+  border-radius: 20px;
+  background: var(--card-bg);
+  transition: background-color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.list .dark {
+  --title-hover: var(--text-accent-on-inverse);
+}
+
+.list .card:hover {
+  background: var(--surface-muted);
+}
+
+.cardHead,
+.foot {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHead {
+  gap: var(--space-16);
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--surface-badge);
+  color: var(--icon-default);
+}
+
+.cardTitle {
+  color: var(--text-primary);
+  transition: color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.card:hover .cardTitle {
+  color: var(--title-hover);
+}
+
+.foot {
+  gap: var(--space-24);
+}
+
+.deliverable {
+  display: flex;
+  gap: var(--space-16);
+}
+
+.bar {
+  flex: none;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--date-marker);
+}
+
+.deliverableText {
+  flex: 1 1 0;
+  min-width: 0;
+  color: var(--text-primary);
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.term {
+  padding: 6px 14px;
+  border: var(--stroke-1) solid var(--border-strong);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: var(--button-primary-bg);
+  color: var(--icon-on-accent);
+}
+
+.processes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.processesTitle {
+  color: var(--text-primary);
+}
+
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-20);
+}
+
+.tileItem {
+  flex: 0 1 304px;
+  min-width: 0;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-16);
+  height: 135px;
+  padding: var(--space-24);
+  border-radius: 16px;
+  background: var(--surface-muted);
+}
+
+.tileBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  color: var(--icon-muted);
+}
+
+.tileTitle {
+  color: var(--text-primary);
+  transition: color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+a.tile:hover .tileTitle {
+  color: var(--text-accent);
+}
+
+@media (max-width: 999px) {
+  .list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+}
+
+@media (max-width: 767px) {
+  /* В кадре шаг 16 внутри пары и 32 между парами */
+  .list .card:nth-child(3) {
+    margin-top: var(--space-16);
+  }
+
+  .tiles {
+    gap: var(--space-32);
+  }
+}

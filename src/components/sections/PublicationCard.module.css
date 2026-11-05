@@ -1,0 +1,52 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  width: 100%;
+  padding: calc(var(--space-24) - var(--stroke-1));
+  border: var(--stroke-1) solid var(--card-border);
+  border-radius: var(--radius-lg);
+  background: var(--card-bg);
+  text-align: left;
+  transition: background-color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.card:hover {
+  background: var(--surface-muted);
+}
+
+.source,
+.author {
+  color: var(--text-secondary);
+}
+
+.title {
+  min-height: 120px;
+  max-width: 864px;
+  color: var(--text-primary);
+  transition: color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.card[data-compact] .title {
+  min-height: 0;
+}
+
+.card:hover .title {
+  color: var(--text-accent);
+}
+
+:global(.inverse) .card:hover .title {
+  color: var(--text-accent-on-inverse);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: var(--icon-accent);
+}
+
+.author {
+  flex: 1 1 0;
+  min-width: 0;
+}
