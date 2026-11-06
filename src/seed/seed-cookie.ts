@@ -10,8 +10,8 @@ const seed = async () => {
     context: { disableRevalidate: true },
     slug: 'cookie-banner',
     data: {
-      version: '2026-11-05',
-      text: 'Используем cookie для работы сайта и обезличенной аналитики. Подробнее в',
+      version: '2026-11-06',
+      text: 'Используем cookie для работы сайта, обезличенной аналитики и карты. Подробнее в',
       policyLabel: 'политике обработки персональных данных',
       necessaryOnlyLabel: 'Только необходимые',
       acceptAllLabel: 'Принять все',

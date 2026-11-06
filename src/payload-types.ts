@@ -900,7 +900,6 @@ export interface Home {
           deliverable: string;
           term: string;
           route: 'upp' | 'erp' | 'dorabotka' | 'support' | 'diagnostics' | 'cases' | 'about';
-          dark?: boolean | null;
           id?: string | null;
         }[]
       | null;
@@ -944,7 +943,6 @@ export interface Home {
             | 'verified'
             | 'task-alt';
           title: string;
-          route?: ('upp' | 'erp' | 'dorabotka' | 'support' | 'diagnostics' | 'cases' | 'about') | null;
           id?: string | null;
         }[]
       | null;
@@ -1177,6 +1175,7 @@ export interface Upp {
      */
     webinarCover?: (number | null) | Media;
     webinarIntro: string;
+    webinarCloseLabel: string;
     /**
      * Ссылка открывает запись с этого места
      */
@@ -1816,13 +1815,6 @@ export interface Support {
         | null;
     };
   };
-  team: {
-    title: string;
-    lead?: string | null;
-    person: number | Team;
-    linkLabel: string;
-    linkRoute: 'upp' | 'erp' | 'dorabotka' | 'support' | 'diagnostics' | 'cases' | 'about';
-  };
   seo: {
     metaTitle: string;
     metaDescription: string;
@@ -2069,6 +2061,10 @@ export interface CasesPage {
     lead?: string | null;
   };
   filters: {
+    /**
+     * Пока кейсов десять, фильтры выключены
+     */
+    enabled?: boolean | null;
     allLabel: string;
     groups?:
       | {
@@ -2221,6 +2217,12 @@ export interface About {
     mapTitle: string;
     mapLinkLabel: string;
     mapUrl: string;
+    /**
+     * Вид https://yandex.ru/map-widget/v1/?…
+     */
+    mapWidgetUrl: string;
+    mapNote: string;
+    mapButtonLabel: string;
     requisitesTitle: string;
     legalNameLabel: string;
     innLabel: string;
@@ -2255,6 +2257,11 @@ export interface Setting {
    */
   phoneRaw?: string | null;
   email: string;
+  /**
+   * Иконка в подвале. Пока адреса нет, иконка стоит без ссылки
+   */
+  vkUrl?: string | null;
+  telegramUrl?: string | null;
   address: string;
   footerTagline: string;
   legalName: string;
@@ -2377,7 +2384,6 @@ export interface HomeSelect<T extends boolean = true> {
               deliverable?: T;
               term?: T;
               route?: T;
-              dark?: T;
               id?: T;
             };
         processesTitle?: T;
@@ -2386,7 +2392,6 @@ export interface HomeSelect<T extends boolean = true> {
           | {
               icon?: T;
               title?: T;
-              route?: T;
               id?: T;
             };
       };
@@ -2623,6 +2628,7 @@ export interface UppSelect<T extends boolean = true> {
         webinar?: T;
         webinarCover?: T;
         webinarIntro?: T;
+        webinarCloseLabel?: T;
         timecodes?:
           | T
           | {
@@ -3086,15 +3092,6 @@ export interface SupportSelect<T extends boolean = true> {
                   };
             };
       };
-  team?:
-    | T
-    | {
-        title?: T;
-        lead?: T;
-        person?: T;
-        linkLabel?: T;
-        linkRoute?: T;
-      };
   seo?:
     | T
     | {
@@ -3314,6 +3311,7 @@ export interface CasesPageSelect<T extends boolean = true> {
   filters?:
     | T
     | {
+        enabled?: T;
         allLabel?: T;
         groups?:
           | T
@@ -3439,6 +3437,9 @@ export interface AboutSelect<T extends boolean = true> {
         mapTitle?: T;
         mapLinkLabel?: T;
         mapUrl?: T;
+        mapWidgetUrl?: T;
+        mapNote?: T;
+        mapButtonLabel?: T;
         requisitesTitle?: T;
         legalNameLabel?: T;
         innLabel?: T;
@@ -3469,6 +3470,8 @@ export interface SettingsSelect<T extends boolean = true> {
   phone?: T;
   phoneRaw?: T;
   email?: T;
+  vkUrl?: T;
+  telegramUrl?: T;
   address?: T;
   footerTagline?: T;
   legalName?: T;

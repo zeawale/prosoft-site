@@ -3,19 +3,9 @@ import { getPayload } from 'payload'
 import config from '../payload.config'
 import { t } from './lib'
 
-const PERSON = 'Алексей Чибисов'
-
 /** Тексты сняты с кадров 78:4221 и 417:10435 */
 const seed = async () => {
   const payload = await getPayload({ config })
-
-  const { docs } = await payload.find({
-    collection: 'team',
-    where: { name: { equals: PERSON } },
-    limit: 1,
-    depth: 0,
-  })
-  if (!docs[0]) throw new Error(`Нет сотрудника «${PERSON}»: сначала pnpm seed:team`)
 
   await payload.updateGlobal({
     context: { disableRevalidate: true },
@@ -120,14 +110,6 @@ const seed = async () => {
             },
           ],
         },
-      },
-
-      team: {
-        title: t('Кто отвечает за~сопровождение'),
-        lead: 'Отдел системного администрирования ПРО-СОФТ. Руководитель отдела Алексей Чибисов.',
-        person: docs[0].id,
-        linkLabel: 'Вся команда',
-        linkRoute: 'about',
       },
 
       seo: {

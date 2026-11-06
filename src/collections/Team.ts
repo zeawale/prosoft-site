@@ -16,7 +16,6 @@ export const Team: CollectionConfig = {
         if (req?.context?.disableRevalidate) return
         revalidatePath('/')
         revalidatePath('/about')
-        revalidatePath('/soprovozhdenie')
       },
     ],
   },

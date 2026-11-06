@@ -406,7 +406,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`deliverable\` text NOT NULL,
   	\`term\` text NOT NULL,
   	\`route\` text NOT NULL,
-  	\`dark\` integer DEFAULT false,
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`home\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
@@ -418,7 +417,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`id\` text PRIMARY KEY NOT NULL,
   	\`icon\` text NOT NULL,
   	\`title\` text NOT NULL,
-  	\`route\` text,
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`home\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
@@ -661,6 +659,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`proof_webinar_id\` integer,
   	\`proof_webinar_cover_id\` integer,
   	\`proof_webinar_intro\` text NOT NULL,
+  	\`proof_webinar_close_label\` text DEFAULT 'Закрыть' NOT NULL,
   	\`faq_title\` text NOT NULL,
   	\`faq_lead\` text,
   	\`seo_meta_title\` text NOT NULL,
@@ -1114,19 +1113,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`handover_table_term_label\` text NOT NULL,
   	\`handover_table_result_label\` text NOT NULL,
   	\`handover_table_pay_label\` text NOT NULL,
-  	\`team_title\` text NOT NULL,
-  	\`team_lead\` text,
-  	\`team_person_id\` integer NOT NULL,
-  	\`team_link_label\` text NOT NULL,
-  	\`team_link_route\` text NOT NULL,
   	\`seo_meta_title\` text NOT NULL,
   	\`seo_meta_description\` text NOT NULL,
   	\`updated_at\` text,
-  	\`created_at\` text,
-  	FOREIGN KEY (\`team_person_id\`) REFERENCES \`team\`(\`id\`) ON UPDATE no action ON DELETE set null
+  	\`created_at\` text
   );
   `)
-  await db.run(sql`CREATE INDEX \`support_team_team_person_idx\` ON \`support\` (\`team_person_id\`);`)
   await db.run(sql`CREATE TABLE \`diagnostics_checks_items\` (
   	\`_order\` integer NOT NULL,
   	\`_parent_id\` integer NOT NULL,
@@ -1337,6 +1329,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`hero_breadcrumb\` text NOT NULL,
   	\`hero_title\` text NOT NULL,
   	\`hero_lead\` text,
+  	\`filters_enabled\` integer DEFAULT false,
   	\`filters_all_label\` text NOT NULL,
   	\`results_count_label\` text NOT NULL,
   	\`results_count_one_label\` text NOT NULL,
@@ -1437,6 +1430,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`contacts_map_title\` text NOT NULL,
   	\`contacts_map_link_label\` text NOT NULL,
   	\`contacts_map_url\` text NOT NULL,
+  	\`contacts_map_widget_url\` text NOT NULL,
+  	\`contacts_map_note\` text NOT NULL,
+  	\`contacts_map_button_label\` text NOT NULL,
   	\`contacts_requisites_title\` text NOT NULL,
   	\`contacts_legal_name_label\` text NOT NULL,
   	\`contacts_inn_label\` text NOT NULL,
@@ -1451,7 +1447,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`id\` integer PRIMARY KEY NOT NULL,
   	\`phone\` text DEFAULT '+7 831 413-06-67' NOT NULL,
   	\`phone_raw\` text,
-  	\`email\` text DEFAULT 'info@1cprosoft.ru' NOT NULL,
+  	\`email\` text DEFAULT 'info@pm52.ru' NOT NULL,
+  	\`vk_url\` text,
+  	\`telegram_url\` text,
   	\`address\` text DEFAULT 'г. Нижний Новгород, Казанское ш., 12, этаж 3, кабинет 311' NOT NULL,
   	\`footer_tagline\` text DEFAULT 'ПРО-СОФТ: внедрение 1С, Нижний Новгород' NOT NULL,
   	\`legal_name\` text DEFAULT 'ООО «ПРО-СОФТ»' NOT NULL,
@@ -1464,8 +1462,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   `)
   await db.run(sql`CREATE TABLE \`cookie_banner\` (
   	\`id\` integer PRIMARY KEY NOT NULL,
-  	\`version\` text DEFAULT '2026-11-05' NOT NULL,
-  	\`text\` text DEFAULT 'Используем cookie для работы сайта и обезличенной аналитики. Подробнее в' NOT NULL,
+  	\`version\` text DEFAULT '2026-11-06' NOT NULL,
+  	\`text\` text DEFAULT 'Используем cookie для работы сайта, обезличенной аналитики и карты. Подробнее в' NOT NULL,
   	\`policy_label\` text DEFAULT 'политике обработки персональных данных' NOT NULL,
   	\`necessary_only_label\` text DEFAULT 'Только необходимые' NOT NULL,
   	\`accept_all_label\` text DEFAULT 'Принять все' NOT NULL,

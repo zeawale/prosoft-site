@@ -16,14 +16,13 @@ type Props = {
         deliverable: string
         term: string
         route: Route
-        dark?: boolean | null
       }[]
     | null
   processesTitle: string
-  processes?: { icon: string; title: string; route?: Route | null }[] | null
+  processes?: { icon: string; title: string }[] | null
 }
 
-/** Блок «Направления»: четыре карточки-ссылки и плитки процессов */
+/** Блок «Направления»: четыре карточки-ссылки, на наведении синие, и плитки процессов */
 export function Services({ title, lead, items, processesTitle, processes }: Props) {
   return (
     <>
@@ -31,11 +30,7 @@ export function Services({ title, lead, items, processesTitle, processes }: Prop
 
       <div className={styles.list}>
         {items?.map((item) => (
-          <Link
-            key={item.route}
-            href={ROUTES[item.route]}
-            className={item.dark ? `inverse ${styles.card} ${styles.dark}` : styles.card}
-          >
+          <Link key={item.route} href={ROUTES[item.route]} className={styles.card}>
             <span className={styles.cardHead}>
               <span className={styles.badge}>
                 <Icon slug={item.icon} size={24} />
@@ -61,27 +56,16 @@ export function Services({ title, lead, items, processesTitle, processes }: Prop
       <div className={styles.processes}>
         <h3 className={`h4 ${styles.processesTitle}`}>{processesTitle}</h3>
         <ul className={styles.tiles}>
-          {processes?.map((item) => {
-            const tile = (
-              <>
+          {processes?.map((item) => (
+            <li key={item.title} className={styles.tileItem}>
+              <span className={styles.tile}>
                 <span className={styles.tileBadge}>
                   <Icon slug={item.icon} size={20} />
                 </span>
                 <span className={`h6 ${styles.tileTitle}`}>{item.title}</span>
-              </>
-            )
-            return (
-              <li key={item.title} className={styles.tileItem}>
-                {item.route ? (
-                  <Link href={ROUTES[item.route]} className={styles.tile}>
-                    {tile}
-                  </Link>
-                ) : (
-                  <span className={styles.tile}>{tile}</span>
-                )}
-              </li>
-            )
-          })}
+              </span>
+            </li>
+          ))}
         </ul>
       </div>
     </>

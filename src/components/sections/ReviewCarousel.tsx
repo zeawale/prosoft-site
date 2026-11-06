@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useSyncExternalStore, type CSSProperties } from 'react'
 import { IconButton } from '@/components/ui/IconButton'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { ReviewCard } from './ReviewCard'
@@ -26,11 +26,20 @@ type Props = {
   lessLabel?: string
 }
 
-const PER_PAGE = 3
+/** Та же ширина, что в модуле стилей: ниже неё карточка одна */
+const NARROW = '(max-width: 999px)'
+
+const subscribe = (onChange: () => void) => {
+  const query = window.matchMedia(NARROW)
+  query.addEventListener('change', onChange)
+  return () => query.removeEventListener('change', onChange)
+}
+
+const getPerView = () => (window.matchMedia(NARROW).matches ? 1 : 3)
+const getServerPerView = () => 3
 
 /**
- * Отзывы: по три карточки, стрелки листают страницы. Последняя страница
- * прижата к концу списка: из семи отзывов это 1–3, 4–6, 5–7.
+ * Отзывы: стрелки сдвигают ленту на одну карточку, то есть 1–3, 2–4 и дальше.
  * «Все отзывы» разворачивает на месте сетку со всеми карточками.
  */
 export function ReviewCarousel({
@@ -42,13 +51,12 @@ export function ReviewCarousel({
   moreLabel,
   lessLabel,
 }: Props) {
-  const [page, setPage] = useState(0)
+  const perView = useSyncExternalStore(subscribe, getPerView, getServerPerView)
+  const [position, setPosition] = useState(0)
   const [showAll, setShowAll] = useState(false)
 
-  const total = reviews.length
-  const pages = Math.ceil(total / PER_PAGE)
-  const start = Math.max(0, Math.min(page * PER_PAGE, total - PER_PAGE))
-  const visible = reviews.slice(start, start + PER_PAGE)
+  const last = Math.max(0, reviews.length - perView)
+  const index = Math.min(position, last)
 
   return (
     <div className={styles.carousel}>
@@ -67,26 +75,21 @@ export function ReviewCarousel({
             </button>
           )}
 
-          {!showAll && pages > 1 && (
-            <>
-              <p className={`body-s ${styles.counter}`} aria-live="polite">
-                {start + 1}–{start + visible.length} из&nbsp;{total}
-              </p>
-              <div className={styles.pager}>
-                <IconButton
-                  icon="arrow-back"
-                  label="Предыдущие отзывы"
-                  disabled={page === 0}
-                  onClick={() => setPage(page - 1)}
-                />
-                <IconButton
-                  icon="arrow-forward"
-                  label="Следующие отзывы"
-                  disabled={page === pages - 1}
-                  onClick={() => setPage(page + 1)}
-                />
-              </div>
-            </>
+          {!showAll && last > 0 && (
+            <div className={styles.pager}>
+              <IconButton
+                icon="arrow-back"
+                label="Предыдущий отзыв"
+                disabled={index === 0}
+                onClick={() => setPosition(index - 1)}
+              />
+              <IconButton
+                icon="arrow-forward"
+                label="Следующий отзыв"
+                disabled={index === last}
+                onClick={() => setPosition(index + 1)}
+              />
+            </div>
           )}
         </div>
       </div>
@@ -105,15 +108,22 @@ export function ReviewCarousel({
           ))}
         </div>
       ) : (
-        <div key={start} className={styles.cards}>
-          {visible.map((review) => (
-            <ReviewCard
-              key={review.id}
-              text={review.excerpt || review.text}
-              author={review.author}
-              role={review.role}
-            />
-          ))}
+        <div className={styles.viewport}>
+          <div className={styles.track} style={{ '--index': index } as CSSProperties}>
+            {reviews.map((review, i) => (
+              <div
+                key={review.id}
+                className={styles.slide}
+                aria-hidden={i < index || i >= index + perView}
+              >
+                <ReviewCard
+                  text={review.excerpt || review.text}
+                  author={review.author}
+                  role={review.role}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

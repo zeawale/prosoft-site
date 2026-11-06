@@ -22,7 +22,7 @@ export default async function CasesPage() {
   ])
 
   // depth 1 разворачивает связь в документ, карточкам нужен только id
-  const groups = (page.filters.groups ?? []).map((group) => ({
+  const groups = (page.filters.enabled ? (page.filters.groups ?? []) : []).map((group) => ({
     key: group.key,
     label: group.label,
     options: (group.options ?? []).map((option) => ({

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { SocialIcon } from '@/components/ui/SocialIcon'
 import { TextLink } from '@/components/ui/TextLink'
 import { footerServices, legalNav, mainNav, ROUTES } from '@/lib/navigation'
 import { getSettings } from '@/lib/queries'
@@ -7,6 +8,10 @@ import styles from './Footer.module.css'
 /** Подвал: всегда тёмный, data-no-sticky-cta прячет нижнюю панель на телефоне */
 export async function Footer() {
   const settings = await getSettings()
+  const socials = [
+    { name: 'vk', label: 'ВКонтакте', url: settings.vkUrl },
+    { name: 'telegram', label: 'Telegram', url: settings.telegramUrl },
+  ] as const
 
   return (
     <footer className={`inverse ${styles.footer}`} data-no-sticky-cta>
@@ -47,6 +52,26 @@ export async function Footer() {
               {settings.email}
             </a>
             <p className={`body-s ${styles.secondary}`}>{settings.address}</p>
+            <div className={styles.socials}>
+              {socials.map(({ name, label, url }) =>
+                url ? (
+                  <a
+                    key={name}
+                    href={url}
+                    className={styles.social}
+                    aria-label={label}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <SocialIcon name={name} />
+                  </a>
+                ) : (
+                  <span key={name} className={styles.social}>
+                    <SocialIcon name={name} />
+                  </span>
+                ),
+              )}
+            </div>
           </div>
         </div>
 

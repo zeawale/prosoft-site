@@ -32,6 +32,13 @@ export const CasesPage: GlobalConfig = {
           label: 'Фильтры',
           description: 'Кейс попадает в фильтр, когда выбран в значении',
           fields: [
+            {
+              name: 'enabled',
+              type: 'checkbox',
+              label: 'Показывать фильтры и счётчик',
+              defaultValue: false,
+              admin: { description: 'Пока кейсов десять, фильтры выключены' },
+            },
             { name: 'allLabel', type: 'text', label: 'Кнопка «Все»', required: true },
             {
               name: 'groups',

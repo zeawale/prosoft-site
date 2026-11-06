@@ -113,6 +113,13 @@ export const Upp: GlobalConfig = {
             },
             { name: 'webinarIntro', type: 'text', label: 'Подпись над таймкодами', required: true },
             {
+              name: 'webinarCloseLabel',
+              type: 'text',
+              label: 'Кнопка закрытия окна вебинара',
+              required: true,
+              defaultValue: 'Закрыть',
+            },
+            {
               name: 'timecodes',
               type: 'array',
               label: 'Таймкоды',

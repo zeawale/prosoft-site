@@ -8,7 +8,7 @@ import { ReviewCarousel } from '@/components/sections/ReviewCarousel'
 import { SectionShell } from '@/components/sections/SectionShell'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { ROUTES } from '@/lib/navigation'
-import { getPageGlobal, getSettings, getTeam } from '@/lib/queries'
+import { getCookieBanner, getPageGlobal, getSettings, getTeam } from '@/lib/queries'
 import { getAllReviews } from './queries'
 import styles from './page.module.css'
 
@@ -22,11 +22,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const [about, settings, team, reviews] = await Promise.all([
+  const [about, settings, team, reviews, cookie] = await Promise.all([
     getPageGlobal('about', ['hero', 'team', 'status', 'reviews', 'contacts']),
     getSettings(),
     getTeam(),
     getAllReviews(),
+    getCookieBanner(),
   ])
 
   const { hero, stats, status, contacts } = about
@@ -53,7 +54,7 @@ export default async function AboutPage() {
 
       <SectionShell id="contacts">
         <SectionHeader title={contacts.title} />
-        <ContactsBlock {...contacts} settings={settings} />
+        <ContactsBlock {...contacts} settings={settings} consentVersion={cookie.version} />
       </SectionShell>
     </main>
   )

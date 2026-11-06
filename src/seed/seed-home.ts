@@ -122,7 +122,6 @@ const seed = async () => {
             ),
             term: '6–18 мес.',
             route: 'upp',
-            dark: true,
           },
           {
             icon: 'factory',
@@ -153,13 +152,13 @@ const seed = async () => {
         ],
         processesTitle: 'Процессы, которые автоматизируем',
         processes: [
-          { icon: 'cart', title: 'Закупки', route: 'erp' },
-          { icon: 'factory', title: 'Производство', route: 'erp' },
-          { icon: 'sell', title: t('Продажи и~CRM'), route: 'erp' },
-          { icon: 'warehouse', title: t('Склад и~WMS'), route: 'erp' },
-          { icon: 'bank', title: t('Финансы и~дебиторка'), route: 'erp' },
-          { icon: 'groups', title: 'HR', route: 'erp' },
-          { icon: 'swap', title: 'Интеграции', route: 'dorabotka' },
+          { icon: 'cart', title: 'Закупки' },
+          { icon: 'factory', title: 'Производство' },
+          { icon: 'sell', title: t('Продажи и~CRM') },
+          { icon: 'warehouse', title: t('Склад и~WMS') },
+          { icon: 'bank', title: t('Финансы и~дебиторка') },
+          { icon: 'groups', title: 'HR' },
+          { icon: 'swap', title: 'Интеграции' },
         ],
       },
 
@@ -223,8 +222,7 @@ const seed = async () => {
       },
 
       team: {
-        title: 'Команда',
-        lead: t('Люди, которые ведут ваш проект от~диагностики до~сопровождения.'),
+        title: 'Основатель',
       },
 
       reviews: {

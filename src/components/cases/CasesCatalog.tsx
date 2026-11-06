@@ -103,49 +103,53 @@ export function CasesCatalog({ cases, groups, allLabel, labels, results }: Props
 
   return (
     <>
-      <div className={styles.filters}>
-        {groups.map((group) => {
-          const current = active.find((item) => item.key === group.key)?.option.value
-          return (
-            <div
-              key={group.key}
-              className={styles.group}
-              role="group"
-              aria-labelledby={`filter-${group.key}`}
-            >
-              <p id={`filter-${group.key}`} className={`label-14 ${styles.groupLabel}`}>
-                {group.label}
-              </p>
-              <div className={styles.chips}>
-                <FilterChip
-                  label={allLabel}
-                  selected={!current}
-                  onClick={() => choose(group.key, null)}
-                />
-                {group.options.map((option) => (
-                  <FilterChip
-                    key={option.value}
-                    label={option.label}
-                    selected={option.value === current}
-                    onClick={() => choose(group.key, option.value)}
-                  />
-                ))}
-              </div>
-            </div>
-          )
-        })}
-      </div>
+      {groups.length > 0 && (
+        <>
+          <div className={styles.filters}>
+            {groups.map((group) => {
+              const current = active.find((item) => item.key === group.key)?.option.value
+              return (
+                <div
+                  key={group.key}
+                  className={styles.group}
+                  role="group"
+                  aria-labelledby={`filter-${group.key}`}
+                >
+                  <p id={`filter-${group.key}`} className={`label-14 ${styles.groupLabel}`}>
+                    {group.label}
+                  </p>
+                  <div className={styles.chips}>
+                    <FilterChip
+                      label={allLabel}
+                      selected={!current}
+                      onClick={() => choose(group.key, null)}
+                    />
+                    {group.options.map((option) => (
+                      <FilterChip
+                        key={option.value}
+                        label={option.label}
+                        selected={option.value === current}
+                        onClick={() => choose(group.key, option.value)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
 
-      <div className={styles.results}>
-        <p className={`body-m ${styles.count}`} aria-live="polite">
-          {count}
-        </p>
-        {active.length > 0 && (
-          <button type="button" className={styles.reset} onClick={reset}>
-            <span className={styles.resetText}>{results.resetLabel}</span>
-          </button>
-        )}
-      </div>
+          <div className={styles.results}>
+            <p className={`body-m ${styles.count}`} aria-live="polite">
+              {count}
+            </p>
+            {active.length > 0 && (
+              <button type="button" className={styles.reset} onClick={reset}>
+                <span className={styles.resetText}>{results.resetLabel}</span>
+              </button>
+            )}
+          </div>
+        </>
+      )}
 
       {shown > 0 ? (
         <div className={styles.grid}>

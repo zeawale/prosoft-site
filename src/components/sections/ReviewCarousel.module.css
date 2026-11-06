@@ -48,38 +48,41 @@
   border-bottom-color: transparent;
 }
 
-.counter {
-  min-width: 60px;
-  text-align: right;
-  white-space: nowrap;
-  color: var(--text-muted);
-}
-
 .pager {
   display: flex;
   gap: var(--space-8);
 }
 
-.cards,
 .all {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: var(--space-32);
+  gap: var(--space-32);
 }
 
-.cards {
-  grid-auto-rows: minmax(392px, auto);
-  animation: fade 300ms var(--motion-ease-out);
+/* Лента сдвигается на шаг карточки: ширина одной плюс зазор */
+.viewport {
+  --per-view: 3;
+  --gap: var(--space-32);
+  overflow: hidden;
 }
 
-.all {
-  row-gap: var(--space-32);
+.track {
+  display: flex;
+  gap: var(--gap);
+  transform: translateX(calc((100% + var(--gap)) / var(--per-view) * var(--index) * -1));
+  transition: transform var(--motion-duration-base) var(--motion-ease-out);
 }
 
-@keyframes fade {
-  from {
-    opacity: 0;
-  }
+.slide {
+  flex: 0 0 calc((100% - var(--gap) * (var(--per-view) - 1)) / var(--per-view));
+  display: flex;
+  min-width: 0;
+  min-height: 392px;
+}
+
+.slide > * {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 @media (max-width: 1199px) {
@@ -94,21 +97,28 @@
     width: 100%;
   }
 
-  .cards,
   .all {
-    column-gap: var(--grid-gutter);
+    gap: var(--grid-gutter);
+  }
+
+  .viewport {
+    --gap: var(--grid-gutter);
   }
 }
 
 @media (max-width: 999px) {
-  .cards,
   .all {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--space-16);
   }
 
-  .cards {
-    grid-auto-rows: auto;
+  .viewport {
+    --per-view: 1;
+    --gap: var(--space-16);
+  }
+
+  .slide {
+    min-height: 0;
   }
 }
 

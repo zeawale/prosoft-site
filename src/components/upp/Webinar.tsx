@@ -1,3 +1,7 @@
+'use client'
+
+import { useCallback, useState } from 'react'
+import { PublicationModal, type PublicationDetail } from '@/components/sections/PublicationModal'
 import { VideoCard } from '@/components/sections/VideoCard'
 import type { ImageData } from '@/lib/media'
 import styles from './Webinar.module.css'
@@ -13,6 +17,9 @@ type Props = {
   url?: string | null
   intro: string
   timecodes?: { time: string; label: string }[] | null
+  /** Содержимое окна, как у публикаций на главной */
+  publication: PublicationDetail
+  closeLabel: string
 }
 
 /** «16:26» в секунды: так Rutube принимает место старта в параметре t */
@@ -23,8 +30,8 @@ const atTime = (url: string, time: string) =>
   `${url}${url.includes('?') ? '&' : '?'}t=${toSeconds(time)}`
 
 /**
- * Запись вебинара и оглавление. На страницу плеер не встраивается: карточка и
- * таймкоды открывают запись в новой вкладке, таймкод с нужного места.
+ * Запись вебинара и оглавление. Карточка открывает окно публикации, как на
+ * главной. Таймкоды ведут на запись с нужного места в новой вкладке.
  */
 export function Webinar({
   source,
@@ -36,7 +43,12 @@ export function Webinar({
   url,
   intro,
   timecodes,
+  publication,
+  closeLabel,
 }: Props) {
+  const [open, setOpen] = useState(false)
+  const close = useCallback(() => setOpen(false), [])
+
   return (
     <div className={styles.webinar}>
       <VideoCard
@@ -46,7 +58,7 @@ export function Webinar({
         duration={duration}
         caption={caption}
         cover={cover}
-        href={url}
+        onClick={() => setOpen(true)}
         hideTitle
         keepHeight
       />
@@ -80,6 +92,10 @@ export function Webinar({
           })}
         </ul>
       </div>
+
+      {open && (
+        <PublicationModal publication={publication} closeLabel={closeLabel} onClose={close} />
+      )}
     </div>
   )
 }

@@ -8,6 +8,10 @@ const MAP_URL = `https://yandex.ru/maps/?text=${encodeURIComponent(
   'Нижний Новгород, Казанское шоссе, 12',
 )}`
 
+/** Метка по координатам дома: виджет с поиском по адресу выводит свою панель под карточку адреса */
+const MAP_WIDGET_URL =
+  'https://yandex.ru/map-widget/v1/?ll=44.077501%2C56.288036&z=16&pt=44.077501%2C56.288036%2Cpm2rdm&lang=ru_RU'
+
 /** Тексты сняты с кадра 88:5227 */
 const seed = async () => {
   const payload = await getPayload({ config })
@@ -31,8 +35,7 @@ const seed = async () => {
       ],
 
       team: {
-        title: 'Команда',
-        lead: t('Люди, которые ведут ваш проект от~диагностики до~сопровождения.'),
+        title: 'Основатель',
       },
 
       status: {
@@ -79,6 +82,9 @@ const seed = async () => {
         mapTitle: 'Офис ПРО-СОФТ',
         mapLinkLabel: t('Открыть в~Яндекс Картах'),
         mapUrl: MAP_URL,
+        mapWidgetUrl: MAP_WIDGET_URL,
+        mapNote: t('Карта Яндекса загрузится после согласия на~cookie или по~кнопке.'),
+        mapButtonLabel: 'Показать карту',
         requisitesTitle: 'Реквизиты',
         legalNameLabel: 'Наименование',
         innLabel: 'ИНН',

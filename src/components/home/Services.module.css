@@ -4,9 +4,7 @@
   gap: var(--space-32);
 }
 
-/* .list в селекторе: глобальный .inverse задаёт свой фон той же силы */
-.list .card {
-  --title-hover: var(--text-accent);
+.card {
   display: flex;
   flex-direction: column;
   gap: var(--space-40);
@@ -15,15 +13,20 @@
   border: var(--stroke-1) solid var(--card-border);
   border-radius: 20px;
   background: var(--card-bg);
-  transition: background-color var(--motion-duration-fast) var(--motion-ease-out);
+  transition:
+    background-color var(--motion-duration-fast) var(--motion-ease-out),
+    border-color var(--motion-duration-fast) var(--motion-ease-out);
 }
 
-.list .dark {
-  --title-hover: var(--text-accent-on-inverse);
-}
-
-.list .card:hover {
-  background: var(--surface-muted);
+/* Синяя карточка только на наведении: токены переопределены для всего внутри */
+.card:hover {
+  --text-primary: var(--gray-0);
+  --surface-badge: var(--blue-700);
+  --icon-default: var(--gray-0);
+  --border-strong: var(--blue-400);
+  --button-primary-bg: var(--orange-500);
+  border-color: var(--blue-800);
+  background: var(--blue-800);
 }
 
 .cardHead,
@@ -50,10 +53,6 @@
 .cardTitle {
   color: var(--text-primary);
   transition: color var(--motion-duration-fast) var(--motion-ease-out);
-}
-
-.card:hover .cardTitle {
-  color: var(--title-hover);
 }
 
 .foot {
@@ -148,11 +147,6 @@
 
 .tileTitle {
   color: var(--text-primary);
-  transition: color var(--motion-duration-fast) var(--motion-ease-out);
-}
-
-a.tile:hover .tileTitle {
-  color: var(--text-accent);
 }
 
 @media (max-width: 999px) {
@@ -164,7 +158,7 @@ a.tile:hover .tileTitle {
 
 @media (max-width: 767px) {
   /* В кадре шаг 16 внутри пары и 32 между парами */
-  .list .card:nth-child(3) {
+  .card:nth-child(3) {
     margin-top: var(--space-16);
   }
 

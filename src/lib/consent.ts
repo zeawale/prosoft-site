@@ -8,4 +8,4 @@
  * Экспортируется отсюда, а не из submitLead.ts: в файле с 'use server'
  * можно экспортировать только async-функции.
  */
-export const CONSENT_VERSION_FALLBACK = '2026-11-05'
+export const CONSENT_VERSION_FALLBACK = '2026-11-06'

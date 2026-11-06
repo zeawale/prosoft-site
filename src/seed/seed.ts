@@ -11,7 +11,7 @@ const seed = async () => {
     slug: 'settings',
     data: {
       phone: '+7 831 413-06-67',
-      email: 'info@1cprosoft.ru',
+      email: 'info@pm52.ru',
       address: 'г. Нижний Новгород, Казанское ш., 12, этаж 3, кабинет 311',
       footerTagline: 'ПРО-СОФТ: внедрение 1С, Нижний Новгород',
       legalName: 'ООО «ПРО-СОФТ»',

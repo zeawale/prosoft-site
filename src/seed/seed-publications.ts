@@ -4,8 +4,9 @@ import config from '../payload.config'
 import { seedMedia, t } from './lib'
 
 const AUTHOR = 'Дмитрий Круглецов'
-/** Адресов записей в макете нет: пока ведём на канал из описания QuoteBlock */
-const RUTUBE = 'https://rutube.ru/channel/78163346'
+/** Адреса записей и статей сняты со старого сайта 1cprosoft.ru и страниц изданий */
+const WEBINAR_URL = 'https://rutube.ru/video/2e492cf876753e3b852d06395d0f8b92/'
+const FORUM_URL = 'https://rutube.ru/video/f27ea464337107517a26823c4a71859d/'
 const EXPERT = t('Дмитрий Круглецов, эксперт по~бизнес-автоматизации на~базе 1С')
 
 /** Тексты окон: кадры 317:6659, 317:6740, 317:6817, 317:6894, 317:6971, 317:7048 */
@@ -39,7 +40,7 @@ const PUBLICATIONS = [
       { text: t('80 % доработок в~УПП оказываются мёртвыми — ими никто не~пользуется.') },
     ],
     ctaLabel: t('Смотреть на~Rutube'),
-    url: RUTUBE,
+    url: WEBINAR_URL,
   },
   {
     kind: 'video' as const,
@@ -78,7 +79,7 @@ const PUBLICATIONS = [
       { marker: '36:15', text: 'Почему недостаточно просто нанять интегратора' },
     ],
     ctaLabel: t('Смотреть на~Rutube'),
-    url: RUTUBE,
+    url: FORUM_URL,
   },
   {
     kind: 'article' as const,
@@ -91,6 +92,7 @@ const PUBLICATIONS = [
       'Скрытые потери в~учёте, ручных корректировках, неучтённых расходах. Разбираем три главных источника иллюзии прибыли и~как их~устранить.',
     ),
     ctaLabel: t('Читать на~РБК'),
+    url: 'https://companies.rbc.ru/news/QY0MdYkUeI/pochemu-ne-vidno-realnoj-pribyili-hotya-prodazhi-rastut/',
   },
   {
     kind: 'article' as const,
@@ -101,6 +103,7 @@ const PUBLICATIONS = [
     meta: 'Дмитрий Круглецов, дата публикации уточняется',
     lead: t('Как не~попасть в~аврал в~2026 году в~связи с~переходом на~новый режим 1С.'),
     ctaLabel: t('Читать на~РБК'),
+    url: 'https://companies.rbc.ru/news/nXIqJzFotG/perehod-na-novyij-rezhim-vzaimoraschetov-v-1s-chto-nuzhno-znat-biznesu/',
   },
   {
     kind: 'article' as const,
@@ -129,6 +132,7 @@ const PUBLICATIONS = [
       },
     ],
     ctaLabel: t('Читать в~«Бизнес стратегиях»'),
+    url: 'https://vk.ru/@-229541171-kak-avtomatizaciya-1s-sokraschaet-rutinnye-processy-na-99-i',
   },
   {
     kind: 'article' as const,
@@ -154,6 +158,7 @@ const PUBLICATIONS = [
       { marker: t('к~04.2027'), text: t('Полное прекращение консультаций и~обновлений') },
     ],
     ctaLabel: t('Читать в~«Бизнес стратегиях»'),
+    url: 'https://vk.ru/@biz_strategii-perehod-s-podderzhki-1s-upp-kak-perestroitsya-i-ne-zakrytsya',
   },
 ]
 

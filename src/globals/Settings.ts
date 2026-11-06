@@ -50,7 +50,19 @@ export const Settings: GlobalConfig = {
       type: 'email',
       label: 'Почта',
       required: true,
-      defaultValue: 'info@1cprosoft.ru',
+      defaultValue: 'info@pm52.ru',
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'vkUrl',
+          type: 'text',
+          label: 'Ссылка ВКонтакте',
+          admin: { description: 'Иконка в подвале. Пока адреса нет, иконка стоит без ссылки' },
+        },
+        { name: 'telegramUrl', type: 'text', label: 'Ссылка Telegram' },
+      ],
     },
     {
       name: 'address',

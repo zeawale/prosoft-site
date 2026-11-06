@@ -30,7 +30,7 @@ export const CookieBanner: GlobalConfig = {
       type: 'text',
       label: 'Версия согласия',
       required: true,
-      defaultValue: '2026-11-05',
+      defaultValue: '2026-11-06',
       admin: {
         description:
           'Меняйте дату, когда меняется текст баннера или раздел про cookie в политике. Посетители, ответившие на прежних условиях, увидят баннер снова',
@@ -41,7 +41,7 @@ export const CookieBanner: GlobalConfig = {
       type: 'textarea',
       label: 'Текст до ссылки',
       required: true,
-      defaultValue: 'Используем cookie для работы сайта и обезличенной аналитики. Подробнее в',
+      defaultValue: 'Используем cookie для работы сайта, обезличенной аналитики и карты. Подробнее в',
     },
     {
       name: 'policyLabel',

@@ -2,7 +2,6 @@ import type { GlobalConfig } from 'payload'
 import { revalidatePath } from 'next/cache'
 import { iconField } from '../collections/fields/iconField'
 import { pageHeroField } from '../collections/fields/pageHeroField'
-import { routeField } from '../collections/fields/routeField'
 import { sectionHeaderFields } from '../collections/fields/sectionHeaderFields'
 import { seoField } from '../collections/fields/seoField'
 import { stageTableField } from '../collections/fields/stageTableField'
@@ -94,28 +93,6 @@ export const Support: GlobalConfig = {
           name: 'handover',
           label: 'Переход от подрядчика',
           fields: [...sectionHeaderFields(), stageTableField()],
-        },
-        {
-          name: 'team',
-          label: 'Кто отвечает',
-          description: 'Имя, должность, фото и цитата: коллекция «Команда»',
-          fields: [
-            ...sectionHeaderFields(),
-            {
-              name: 'person',
-              type: 'relationship',
-              relationTo: 'team',
-              label: 'Сотрудник',
-              required: true,
-            },
-            {
-              type: 'row',
-              fields: [
-                { name: 'linkLabel', type: 'text', label: 'Ссылка под текстом', required: true },
-                routeField({ name: 'linkRoute', label: 'Ссылка ведёт на', required: true }),
-              ],
-            },
-          ],
         },
         { label: 'Для поисковиков', fields: [seoField()] },
       ],

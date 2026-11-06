@@ -195,6 +195,7 @@ const seed = async () => {
         },
         webinar: webinars[0].id,
         webinarCover,
+        webinarCloseLabel: 'Закрыть',
         webinarIntro: t('В~вебинаре без сложных терминов разобрали:'),
         timecodes: [
           {

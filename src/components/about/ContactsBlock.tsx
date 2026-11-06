@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { TextLink } from '@/components/ui/TextLink'
+import { OfficeMap } from './OfficeMap'
 import type { Setting } from '@/payload-types'
 import styles from './ContactsBlock.module.css'
 
@@ -13,12 +14,16 @@ type Props = {
   mapTitle: string
   mapLinkLabel: string
   mapUrl: string
+  mapWidgetUrl: string
+  mapNote: string
+  mapButtonLabel: string
   requisitesTitle: string
   legalNameLabel: string
   innLabel: string
   ogrnLabel: string
   requisites?: { label: string; value: string }[] | null
   settings: Setting
+  consentVersion: string
 }
 
 /** В настройках адрес одной строкой, в карточке этаж и кабинет уходят в подпись */
@@ -46,7 +51,7 @@ function ContactCard({
   )
 }
 
-/** Контакты: карточки, карта картинкой, реквизиты. Стороннего виджета карт на сайте нет */
+/** Контакты: карточки, виджет Яндекс Карт с адресом поверх, реквизиты */
 export function ContactsBlock({
   phoneLabel,
   emailLabel,
@@ -57,12 +62,16 @@ export function ContactsBlock({
   mapTitle,
   mapLinkLabel,
   mapUrl,
+  mapWidgetUrl,
+  mapNote,
+  mapButtonLabel,
   requisitesTitle,
   legalNameLabel,
   innLabel,
   ogrnLabel,
   requisites,
   settings,
+  consentVersion,
 }: Props) {
   const address = splitAddress(settings.address)
   const items = [
@@ -90,16 +99,13 @@ export function ContactsBlock({
       </div>
 
       <div className={styles.map}>
-        <picture>
-          <img
-            className={styles.mapImage}
-            src="/about/map.webp"
-            alt={mapTitle}
-            width={1184}
-            height={864}
-            loading="lazy"
-          />
-        </picture>
+        <OfficeMap
+          url={mapWidgetUrl}
+          title={mapTitle}
+          note={mapNote}
+          buttonLabel={mapButtonLabel}
+          consentVersion={consentVersion}
+        />
         <div className={styles.address}>
           <p className={`h6 ${styles.addressTitle}`}>{mapTitle}</p>
           <p className={`body-s ${styles.addressText}`}>{settings.address}</p>

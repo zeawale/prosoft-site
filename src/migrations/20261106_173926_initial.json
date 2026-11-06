@@ -2771,14 +2771,6 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
-        },
-        "dark": {
-          "name": "dark",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false,
-          "default": false
         }
       },
       "indexes": {
@@ -2852,13 +2844,6 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false
-        },
-        "route": {
-          "name": "route",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
           "autoincrement": false
         }
       },
@@ -4515,6 +4500,14 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "proof_webinar_close_label": {
+          "name": "proof_webinar_close_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Закрыть'"
         },
         "faq_title": {
           "name": "faq_title",
@@ -7637,41 +7630,6 @@
           "notNull": true,
           "autoincrement": false
         },
-        "team_title": {
-          "name": "team_title",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "team_lead": {
-          "name": "team_lead",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "team_person_id": {
-          "name": "team_person_id",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "team_link_label": {
-          "name": "team_link_label",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "team_link_route": {
-          "name": "team_link_route",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "seo_meta_title": {
           "name": "seo_meta_title",
           "type": "text",
@@ -7701,30 +7659,8 @@
           "autoincrement": false
         }
       },
-      "indexes": {
-        "support_team_team_person_idx": {
-          "name": "support_team_team_person_idx",
-          "columns": [
-            "team_person_id"
-          ],
-          "isUnique": false
-        }
-      },
-      "foreignKeys": {
-        "support_team_person_id_team_id_fk": {
-          "name": "support_team_person_id_team_id_fk",
-          "tableFrom": "support",
-          "tableTo": "team",
-          "columnsFrom": [
-            "team_person_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "set null",
-          "onUpdate": "no action"
-        }
-      },
+      "indexes": {},
+      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
@@ -9148,6 +9084,14 @@
           "notNull": false,
           "autoincrement": false
         },
+        "filters_enabled": {
+          "name": "filters_enabled",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
         "filters_all_label": {
           "name": "filters_all_label",
           "type": "text",
@@ -9831,6 +9775,27 @@
           "notNull": true,
           "autoincrement": false
         },
+        "contacts_map_widget_url": {
+          "name": "contacts_map_widget_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "contacts_map_note": {
+          "name": "contacts_map_note",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "contacts_map_button_label": {
+          "name": "contacts_map_button_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "contacts_requisites_title": {
           "name": "contacts_requisites_title",
           "type": "text",
@@ -9925,7 +9890,21 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'info@1cprosoft.ru'"
+          "default": "'info@pm52.ru'"
+        },
+        "vk_url": {
+          "name": "vk_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "telegram_url": {
+          "name": "telegram_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         },
         "address": {
           "name": "address",
@@ -10012,7 +9991,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'2026-11-05'"
+          "default": "'2026-11-06'"
         },
         "text": {
           "name": "text",
@@ -10020,7 +9999,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'Используем cookie для работы сайта и обезличенной аналитики. Подробнее в'"
+          "default": "'Используем cookie для работы сайта, обезличенной аналитики и карты. Подробнее в'"
         },
         "policy_label": {
           "name": "policy_label",
@@ -10077,6 +10056,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "eb0ea5a7-6e68-4be8-978d-3c21ca0b57a9",
+  "id": "31c3bc72-f9b6-42a0-8f12-49c16ac5b0c6",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

@@ -82,6 +82,8 @@ export default async function UppPage() {
               url: webinar.url,
               intro: proof.webinarIntro,
               timecodes: proof.timecodes,
+              publication: { ...webinar, cover: toImage(webinar.cover) },
+              closeLabel: proof.webinarCloseLabel,
             }
           }
         />

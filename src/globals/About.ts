@@ -49,8 +49,8 @@ export const About: GlobalConfig = {
         },
         {
           name: 'team',
-          label: 'Команда',
-          description: 'Люди и цитаты: коллекция «Команда»',
+          label: 'Основатель',
+          description: 'Фото, цитата и ссылки: коллекция «Команда», запись с отметкой основателя',
           fields: sectionHeaderFields(),
         },
         {
@@ -108,6 +108,20 @@ export const About: GlobalConfig = {
               ],
             },
             { name: 'mapUrl', type: 'text', label: 'Адрес ссылки на карту', required: true },
+            {
+              name: 'mapWidgetUrl',
+              type: 'text',
+              label: 'Адрес виджета Яндекс Карт',
+              required: true,
+              admin: { description: 'Вид https://yandex.ru/map-widget/v1/?…' },
+            },
+            {
+              type: 'row',
+              fields: [
+                { name: 'mapNote', type: 'textarea', label: 'Текст до загрузки карты', required: true },
+                { name: 'mapButtonLabel', type: 'text', label: 'Кнопка показа карты', required: true },
+              ],
+            },
             {
               name: 'requisitesTitle',
               type: 'text',

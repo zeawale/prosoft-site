@@ -79,7 +79,6 @@ export const Home: GlobalConfig = {
                 { name: 'deliverable', type: 'textarea', label: 'Что на руках', required: true },
                 { name: 'term', type: 'text', label: 'Срок', required: true },
                 routeField({ required: true }),
-                { name: 'dark', type: 'checkbox', label: 'Тёмная карточка', defaultValue: false },
               ],
             },
             { name: 'processesTitle', type: 'text', label: 'Заголовок процессов', required: true },
@@ -91,7 +90,6 @@ export const Home: GlobalConfig = {
               fields: [
                 iconField({ required: true }),
                 { name: 'title', type: 'text', label: 'Название', required: true },
-                routeField(),
               ],
             },
           ],
@@ -113,8 +111,8 @@ export const Home: GlobalConfig = {
         },
         {
           name: 'team',
-          label: 'Команда',
-          description: 'Люди и цитаты: коллекция «Команда»',
+          label: 'Основатель',
+          description: 'Фото, цитата и ссылки: коллекция «Команда», запись с отметкой основателя',
           fields: sectionHeaderFields(),
         },
         {

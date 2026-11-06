@@ -55,6 +55,22 @@
   text-decoration: underline;
 }
 
+.socials {
+  display: flex;
+  gap: var(--space-12);
+  margin-top: var(--space-4);
+}
+
+.social {
+  display: flex;
+  color: var(--text-secondary);
+  transition: color var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+a.social:hover {
+  color: var(--text-primary);
+}
+
 .legal {
   display: flex;
   align-items: flex-start;

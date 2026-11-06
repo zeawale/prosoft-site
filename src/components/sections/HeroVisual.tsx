@@ -19,6 +19,9 @@ const REDUCED_MOTION = '(prefers-reduced-motion: reduce)'
  * <source media> внутри <video> браузеры понимают по-разному, а качать оба
  * нельзя. При prefers-reduced-motion ролик не грузится вовсе. Не загрузился —
  * остаётся постер. Кнопка паузы есть только у живого ролика.
+ *
+ * Кадр не растягивается на ширину окна: с object-fit: cover на широком экране
+ * он обрезался сверху и снизу, а предмет в кадре двигается почти до края.
  */
 export function HeroVisual({ name }: { name: HeroName }) {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -54,40 +57,42 @@ export function HeroVisual({ name }: { name: HeroName }) {
 
   return (
     <div className={styles.visual}>
-      <picture>
-        <source media={MOBILE} srcSet={`/hero/${name}-mobile.webp`} width={750} height={1180} />
-        <img
-          className={styles.media}
-          src={`/hero/${name}.webp`}
-          alt=""
-          width={2400}
-          height={1200}
-          fetchPriority="high"
-        />
-      </picture>
+      <div className={styles.frame}>
+        <picture>
+          <source media={MOBILE} srcSet={`/hero/${name}-mobile.webp`} width={750} height={1180} />
+          <img
+            className={styles.media}
+            src={`/hero/${name}.webp`}
+            alt=""
+            width={2400}
+            height={1200}
+            fetchPriority="high"
+          />
+        </picture>
 
-      {file && (
-        <video
-          key={file}
-          ref={videoRef}
-          className={styles.video}
-          data-ready={ready || undefined}
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster={`/hero/${file}.webp`}
-          aria-hidden="true"
-          onLoadedData={() => setReady(true)}
-          onPlay={() => setPaused(false)}
-          onPause={() => setPaused(true)}
-          onError={() => setFile(null)}
-        >
-          <source src={`/hero/${file}.webm`} type="video/webm" />
-          {/* Ошибка последнего source — единственный сигнал, что не подошёл ни один файл */}
-          <source src={`/hero/${file}.mp4`} type="video/mp4" onError={() => setFile(null)} />
-        </video>
-      )}
+        {file && (
+          <video
+            key={file}
+            ref={videoRef}
+            className={styles.video}
+            data-ready={ready || undefined}
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={`/hero/${file}.webp`}
+            aria-hidden="true"
+            onLoadedData={() => setReady(true)}
+            onPlay={() => setPaused(false)}
+            onPause={() => setPaused(true)}
+            onError={() => setFile(null)}
+          >
+            <source src={`/hero/${file}.webm`} type="video/webm" />
+            {/* Ошибка последнего source — единственный сигнал, что не подошёл ни один файл */}
+            <source src={`/hero/${file}.mp4`} type="video/mp4" onError={() => setFile(null)} />
+          </video>
+        )}
+      </div>
 
       {file && ready && (
         <div className={styles.pause}>
