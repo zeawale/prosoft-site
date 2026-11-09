@@ -5,3 +5,8 @@
   gap: var(--section-gap);
   padding-bottom: var(--section-gap);
 }
+
+/* Страница кончается тёмной секцией: отступ снизу дал бы белую полосу перед подвалом */
+.page.endsDark {
+  padding-bottom: 0;
+}

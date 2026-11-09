@@ -23,7 +23,7 @@ export default async function SupportPage() {
   const { hero, included, sla, handover } = page
 
   return (
-    <main className={styles.page}>
+    <main className={`${styles.page} ${styles.endsDark}`}>
       <PageHero
         visual="support"
         title={hero.title}
@@ -45,7 +45,6 @@ export default async function SupportPage() {
         <SectionHeader title={handover.title} lead={handover.lead} />
         <StageTable {...handover.table} />
       </SectionShell>
-
     </main>
   )
 }
