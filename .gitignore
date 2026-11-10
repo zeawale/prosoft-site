@@ -57,6 +57,8 @@ node_modules/
 
 # рабочий контекст проекта — в публичный репозиторий не едет
 /general_promt.md
+/.claude/
+/CLAUDE.local.md
 
 # Фото людей и обложки: на сервер копируются отдельно, см. deploy/README.md
 /src/seed/assets/
