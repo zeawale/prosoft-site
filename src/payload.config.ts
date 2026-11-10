@@ -15,6 +15,7 @@ import { Publications } from './collections/Publications'
 import { Team } from './collections/Team'
 import { Settings } from './globals/Settings'
 import { CookieBanner } from './globals/CookieBanner'
+import { LeadForms } from './globals/LeadForms'
 import { Home } from './globals/Home'
 import { Upp } from './globals/Upp'
 import { Erp } from './globals/Erp'
@@ -30,7 +31,19 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   collections: [Users, Media, Leads, Cases, Publications, Reviews, Team, LegalPages],
-  globals: [Home, Upp, Erp, Dorabotka, Support, Diagnostics, CasesPage, About, Settings, CookieBanner],
+  globals: [
+    Home,
+    Upp,
+    Erp,
+    Dorabotka,
+    Support,
+    Diagnostics,
+    CasesPage,
+    About,
+    Settings,
+    LeadForms,
+    CookieBanner,
+  ],
   admin: {
     user: Users.slug,
     importMap: {

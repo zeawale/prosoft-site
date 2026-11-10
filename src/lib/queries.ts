@@ -46,6 +46,12 @@ export async function getSettings() {
   return payload.findGlobal({ slug: 'settings', depth: 0 })
 }
 
+export const getLeadForms = async () => {
+  const payload = await getPayload({ config })
+  const forms = await payload.findGlobal({ slug: 'lead-forms', depth: 0 })
+  return assertFilled(forms, 'lead-forms', ['diagnostics', 'request', 'submitLabel'])
+}
+
 export const getCookieBanner = async () => {
   const payload = await getPayload({ config })
   const banner = await payload.findGlobal({ slug: 'cookie-banner', depth: 0 })

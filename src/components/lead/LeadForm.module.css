@@ -139,6 +139,48 @@
   box-shadow: 0 0 0 1px var(--border-error);
 }
 
+/* Мессенджеры под кнопкой отправки: в макете их нет, размер как у Button M */
+.messengers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.chat {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+  width: 100%;
+  min-height: var(--size-control-48);
+  padding-inline: var(--space-20);
+  border-radius: var(--radius-md);
+  color: var(--text-on-accent);
+  text-align: center;
+  transition: background var(--motion-duration-fast) var(--motion-ease-out);
+}
+
+.chat:focus-visible {
+  outline: 2px solid var(--input-border-focus);
+  outline-offset: 2px;
+}
+
+.telegram {
+  background: var(--brand-telegram-bg);
+}
+
+.telegram:hover {
+  background: var(--brand-telegram-bg-hover);
+}
+
+.max {
+  background: var(--brand-max-bg);
+}
+
+.max:hover {
+  background: var(--brand-max-bg-hover);
+}
+
 .status {
   display: flex;
   flex-direction: column;

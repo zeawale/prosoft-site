@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { SocialIcon } from '@/components/ui/SocialIcon'
+import { MessengerLogo } from '@/components/ui/MessengerLogo'
 import { TextLink } from '@/components/ui/TextLink'
 import { footerServices, legalNav, mainNav, ROUTES } from '@/lib/navigation'
 import { getSettings } from '@/lib/queries'
@@ -8,10 +8,11 @@ import styles from './Footer.module.css'
 /** Подвал: всегда тёмный, data-no-sticky-cta прячет нижнюю панель на телефоне */
 export async function Footer() {
   const settings = await getSettings()
+  // Пустая ссылка в реквизитах — значка нет
   const socials = [
-    { name: 'vk', label: 'ВКонтакте', url: settings.vkUrl },
-    { name: 'telegram', label: 'Telegram', url: settings.telegramUrl },
-  ] as const
+    { name: 'max' as const, label: 'MAX', url: settings.maxUrl },
+    { name: 'telegram' as const, label: 'Telegram', url: settings.telegramUrl },
+  ].filter((item): item is typeof item & { url: string } => Boolean(item.url))
 
   return (
     <footer className={`inverse ${styles.footer}`} data-no-sticky-cta>
@@ -52,9 +53,9 @@ export async function Footer() {
               {settings.email}
             </a>
             <p className={`body-s ${styles.secondary}`}>{settings.address}</p>
-            <div className={styles.socials}>
-              {socials.map(({ name, label, url }) =>
-                url ? (
+            {socials.length > 0 && (
+              <div className={styles.socials}>
+                {socials.map(({ name, label, url }) => (
                   <a
                     key={name}
                     href={url}
@@ -63,15 +64,11 @@ export async function Footer() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <SocialIcon name={name} />
+                    <MessengerLogo name={name} />
                   </a>
-                ) : (
-                  <span key={name} className={styles.social}>
-                    <SocialIcon name={name} />
-                  </span>
-                ),
-              )}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

@@ -20,15 +20,15 @@ export const Leads: CollectionConfig = {
     delete: ({ req }) => Boolean(req.user),
   },
   admin: {
-    useAsTitle: 'name',
-    defaultColumns: ['name', 'phone', 'company', 'status', 'createdAt'],
+    // Обязателен в форме только телефон, имя может быть пустым
+    useAsTitle: 'phone',
+    defaultColumns: ['phone', 'name', 'company', 'status', 'createdAt'],
     group: 'Заявки',
   },
   fields: [
     {
       name: 'name',
       type: 'text',
-      required: true,
       label: 'Имя',
     },
     {
@@ -40,7 +40,6 @@ export const Leads: CollectionConfig = {
     {
       name: 'company',
       type: 'text',
-      required: true,
       label: 'Компания',
     },
     {

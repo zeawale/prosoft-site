@@ -18,15 +18,14 @@
     border-color var(--motion-duration-fast) var(--motion-ease-out);
 }
 
-/* Синяя карточка только на наведении: токены переопределены для всего внутри */
+/* Наведение — светло-синяя подложка и синяя рамка. Тёмная заливка с оранжевой
+   стрелкой была слишком яркой (Ника, 2026-11-10) */
 .card:hover {
-  --text-primary: var(--gray-0);
-  --surface-badge: var(--blue-800);
-  --icon-default: var(--gray-0);
-  --border-strong: var(--blue-500);
-  --button-primary-bg: var(--orange-500);
-  border-color: var(--blue-900);
-  background: var(--blue-900);
+  --surface-badge: var(--blue-100);
+  --border-strong: var(--blue-300);
+  --button-primary-bg: var(--button-primary-bg-hover);
+  border-color: var(--blue-300);
+  background: var(--blue-50);
 }
 
 .cardHead,

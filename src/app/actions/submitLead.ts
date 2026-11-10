@@ -19,17 +19,18 @@ export async function submitLead(formData: FormData): Promise<LeadResult> {
 
   const fieldErrors: Record<string, string> = {}
 
-  if (name.length < 2) {
-    fieldErrors.name = 'Напишите, как к вам обращаться'
-  }
-
+  // Обязателен только телефон: имя и компанию человек может не указывать
   const phoneError = phoneProblem(phone)
   if (phoneError) {
     fieldErrors.phone = phoneError
   }
 
-  if (company.length < 2) {
-    fieldErrors.company = 'Напишите название компании'
+  if (name.length > 200) {
+    fieldErrors.name = 'Слишком длинно, сократите до 200 знаков'
+  }
+
+  if (company.length > 200) {
+    fieldErrors.company = 'Слишком длинно, сократите до 200 знаков'
   }
 
   if (comment.length > 2000) {
@@ -59,9 +60,9 @@ export async function submitLead(formData: FormData): Promise<LeadResult> {
     await payload.create({
       collection: 'leads',
       data: {
-        name,
+        name: name || undefined,
         phone,
-        company,
+        company: company || undefined,
         comment: comment || undefined,
         details: details || undefined,
         status: 'new',

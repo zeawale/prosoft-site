@@ -167,6 +167,17 @@
   --date-text: #062253;
   --date-marker: #f77106;
 
+  /* Мессенджеры: в макете их нет. Знаки — цвета брендов (Telegram, иконка
+     max.ru). Кнопки темнее знаков: белый текст на них держит контраст 4.5:1 */
+  --brand-telegram-mark: #229ed9;
+  --brand-telegram-bg: #1c78be;
+  --brand-telegram-bg-hover: #17649e;
+  --brand-max-from: #19baff;
+  --brand-max-via: #2d2dff;
+  --brand-max-to: #8114ff;
+  --brand-max-bg: linear-gradient(90deg, #1d62ff 0%, #4120fe 50%, #8114ff 100%);
+  --brand-max-bg-hover: linear-gradient(90deg, #1a52d9 0%, #3519d6 50%, #6b0fd6 100%);
+
   /* Тени Shadow/S и Shadow/M */
   --shadow-s: 0 1px 2px var(--alpha-black-8), 0 2px 8px var(--alpha-black-8);
   --shadow-m: 0 2px 4px var(--alpha-black-8), 0 8px 24px var(--alpha-black-16);

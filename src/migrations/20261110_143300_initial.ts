@@ -50,9 +50,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE UNIQUE INDEX \`media_filename_idx\` ON \`media\` (\`filename\`);`)
   await db.run(sql`CREATE TABLE \`leads\` (
   	\`id\` integer PRIMARY KEY NOT NULL,
-  	\`name\` text NOT NULL,
+  	\`name\` text,
   	\`phone\` text NOT NULL,
-  	\`company\` text NOT NULL,
+  	\`company\` text,
   	\`comment\` text,
   	\`details\` text,
   	\`status\` text DEFAULT 'new' NOT NULL,
@@ -613,6 +613,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`hero_breadcrumb\` text NOT NULL,
   	\`hero_title\` text NOT NULL,
   	\`hero_lead\` text,
+  	\`hero_cta_label\` text NOT NULL,
+  	\`hero_cta_comment\` text,
   	\`date_strip_label\` text NOT NULL,
   	\`date_strip_main_date\` text NOT NULL,
   	\`date_strip_main_title\` text NOT NULL,
@@ -768,6 +770,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`hero_breadcrumb\` text NOT NULL,
   	\`hero_title\` text NOT NULL,
   	\`hero_lead\` text,
+  	\`hero_cta_label\` text NOT NULL,
+  	\`hero_cta_comment\` text,
   	\`erp_or_ka_title\` text NOT NULL,
   	\`erp_or_ka_lead\` text,
   	\`erp_or_ka_questions_title\` text NOT NULL,
@@ -981,6 +985,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`hero_breadcrumb\` text NOT NULL,
   	\`hero_title\` text NOT NULL,
   	\`hero_lead\` text,
+  	\`hero_cta_label\` text NOT NULL,
+  	\`hero_cta_comment\` text,
   	\`work_title\` text NOT NULL,
   	\`work_lead\` text,
   	\`integrations_title\` text NOT NULL,
@@ -1096,6 +1102,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`hero_breadcrumb\` text NOT NULL,
   	\`hero_title\` text NOT NULL,
   	\`hero_lead\` text,
+  	\`hero_cta_label\` text NOT NULL,
+  	\`hero_cta_comment\` text,
   	\`included_title\` text NOT NULL,
   	\`included_lead\` text,
   	\`sla_title\` text NOT NULL,
@@ -1247,6 +1255,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`hero_breadcrumb\` text NOT NULL,
   	\`hero_title\` text NOT NULL,
   	\`hero_lead\` text,
+  	\`hero_cta_label\` text NOT NULL,
   	\`checks_title\` text NOT NULL,
   	\`checks_lead\` text,
   	\`report_title\` text NOT NULL,
@@ -1448,7 +1457,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`phone\` text DEFAULT '+7 831 413-06-67' NOT NULL,
   	\`phone_raw\` text,
   	\`email\` text DEFAULT 'info@pm52.ru' NOT NULL,
-  	\`vk_url\` text,
+  	\`max_url\` text,
   	\`telegram_url\` text,
   	\`address\` text DEFAULT 'г. Нижний Новгород, Казанское ш., 12, этаж 3, кабинет 311' NOT NULL,
   	\`footer_tagline\` text DEFAULT 'ПРО-СОФТ: внедрение 1С, Нижний Новгород' NOT NULL,
@@ -1456,6 +1465,24 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	\`inn\` text DEFAULT '5260480157' NOT NULL,
   	\`ogrn\` text DEFAULT '1215200037128' NOT NULL,
   	\`accreditation\` text DEFAULT 'Аккредитованная ИТ-компания, реестр Минцифры России' NOT NULL,
+  	\`updated_at\` text,
+  	\`created_at\` text
+  );
+  `)
+  await db.run(sql`CREATE TABLE \`lead_forms\` (
+  	\`id\` integer PRIMARY KEY NOT NULL,
+  	\`diagnostics_title\` text DEFAULT 'Получить диагностику за 2 дня' NOT NULL,
+  	\`diagnostics_lead\` text DEFAULT 'Перезвоним и договоримся о времени диагностики. Бесплатно, отчёт на руки.' NOT NULL,
+  	\`diagnostics_comment\` text DEFAULT 'Хочу записаться на бесплатную диагностику 1С за 2 дня.',
+  	\`diagnostics_success_text\` text DEFAULT 'Перезвоним в течение рабочего дня и договоримся о времени диагностики.' NOT NULL,
+  	\`request_title\` text DEFAULT 'Оставить заявку' NOT NULL,
+  	\`request_lead\` text DEFAULT 'Перезвоним в течение рабочего дня и ответим на вопросы.' NOT NULL,
+  	\`request_comment\` text DEFAULT '',
+  	\`request_success_text\` text DEFAULT 'Перезвоним в течение рабочего дня и ответим на вопросы.' NOT NULL,
+  	\`submit_label\` text DEFAULT 'Отправить заявку' NOT NULL,
+  	\`max_label\` text DEFAULT 'Отправить сообщение в MAX' NOT NULL,
+  	\`telegram_label\` text DEFAULT 'Отправить сообщение в Telegram' NOT NULL,
+  	\`message_intro\` text DEFAULT 'Здравствуйте! Пишу с сайта про-софт.рф.' NOT NULL,
   	\`updated_at\` text,
   	\`created_at\` text
   );
@@ -1565,5 +1592,6 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   await db.run(sql`DROP TABLE \`about_contacts_requisites\`;`)
   await db.run(sql`DROP TABLE \`about\`;`)
   await db.run(sql`DROP TABLE \`settings\`;`)
+  await db.run(sql`DROP TABLE \`lead_forms\`;`)
   await db.run(sql`DROP TABLE \`cookie_banner\`;`)
 }

@@ -8,7 +8,7 @@ import { LeadModalProvider } from '@/components/lead/LeadModalProvider'
 import { CookieConsent } from '@/components/cookie/CookieConsent'
 import { YandexMetrika } from '@/components/analytics/YandexMetrika'
 import { OrganizationJsonLd } from '@/components/seo/OrganizationJsonLd'
-import { getCookieBanner, getSettings } from '@/lib/queries'
+import { getCookieBanner, getLeadForms, getSettings } from '@/lib/queries'
 import { SITE_URL } from '@/lib/site'
 
 /**
@@ -39,7 +39,25 @@ export const metadata: Metadata = {
 const YM_ID = Number(process.env.NEXT_PUBLIC_YM_ID) || null
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const [cookie, settings] = await Promise.all([getCookieBanner(), getSettings()])
+  const [cookie, settings, forms] = await Promise.all([
+    getCookieBanner(),
+    getSettings(),
+    getLeadForms(),
+  ])
+
+  const leadConfig = {
+    diagnostics: forms.diagnostics,
+    request: forms.request,
+    submitLabel: forms.submitLabel,
+    phone: settings.phone,
+    messengers: {
+      maxLabel: forms.maxLabel,
+      telegramLabel: forms.telegramLabel,
+      intro: forms.messageIntro,
+      maxUrl: settings.maxUrl,
+      telegramUrl: settings.telegramUrl,
+    },
+  }
 
   return (
     <html lang="ru">
@@ -63,7 +81,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <OrganizationJsonLd />
       </head>
       <body>
-        <LeadModalProvider phone={settings.phone}>
+        <LeadModalProvider config={leadConfig}>
           <Header />
           {children}
           <Footer />

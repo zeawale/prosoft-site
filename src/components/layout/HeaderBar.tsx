@@ -6,11 +6,44 @@ import { usePathname } from 'next/navigation'
 import { LeadButton } from '@/components/lead/LeadButton'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
+import { MessengerLogo } from '@/components/ui/MessengerLogo'
 import { mainNav, mobileNav, ROUTES, serviceNav } from '@/lib/navigation'
 import { usePastHero } from '@/lib/useScrollState'
 import styles from './Header.module.css'
 
-type Props = { phone: string; phoneRaw: string }
+type Props = {
+  phone: string
+  phoneRaw: string
+  maxUrl?: string | null
+  telegramUrl?: string | null
+}
+
+/** Знаки мессенджеров в цветах брендов: ссылки на профили из реквизитов */
+function Messengers({ maxUrl, telegramUrl }: Pick<Props, 'maxUrl' | 'telegramUrl'>) {
+  const chats = [
+    { name: 'max' as const, label: 'Написать в MAX', url: maxUrl },
+    { name: 'telegram' as const, label: 'Написать в Telegram', url: telegramUrl },
+  ].filter((chat) => chat.url)
+
+  if (chats.length === 0) return null
+  return (
+    <div className={styles.messengers}>
+      {chats.map(({ name, label, url }) => (
+        <a
+          key={name}
+          href={url ?? undefined}
+          target="_blank"
+          rel="noreferrer"
+          className={styles.messenger}
+          aria-label={label}
+          title={label}
+        >
+          <MessengerLogo name={name} tone="brand" size={28} />
+        </a>
+      ))}
+    </div>
+  )
+}
 type Menu = 'services' | 'mobile' | null
 
 const FOCUSABLE = 'a[href], button:not([disabled])'
@@ -21,7 +54,7 @@ const FOCUSABLE = 'a[href], button:not([disabled])'
  * меню на весь экран с запертым фокусом. Ниже 1200 — кнопка меню: телефон,
  * пункты и кнопка в одну строку не помещаются.
  */
-export function HeaderBar({ phone, phoneRaw }: Props) {
+export function HeaderBar({ phone, phoneRaw, maxUrl, telegramUrl }: Props) {
   const pathname = usePathname()
   const compact = usePastHero()
   const [menu, setMenu] = useState<Menu>(null)
@@ -123,8 +156,9 @@ export function HeaderBar({ phone, phoneRaw }: Props) {
           <a href={`tel:${phoneRaw}`} className={`label-16 ${styles.phone}`}>
             {phone}
           </a>
-          <LeadButton source="header" size={compact ? 'S' : 'M'}>
-            Получить диагностику
+          <Messengers maxUrl={maxUrl} telegramUrl={telegramUrl} />
+          <LeadButton source="header" kind="request" size={compact ? 'S' : 'M'}>
+            Оставить заявку
           </LeadButton>
         </div>
 
@@ -175,11 +209,14 @@ export function HeaderBar({ phone, phoneRaw }: Props) {
             ))}
           </ul>
           <div className={styles.mobileFooter}>
-            <a href={`tel:${phoneRaw}`} className="h5">
-              {phone}
-            </a>
-            <LeadButton source="mobile-menu" fill>
-              Получить диагностику
+            <div className={styles.mobileContacts}>
+              <a href={`tel:${phoneRaw}`} className="h5">
+                {phone}
+              </a>
+              <Messengers maxUrl={maxUrl} telegramUrl={telegramUrl} />
+            </div>
+            <LeadButton source="mobile-menu" kind="request" fill>
+              Оставить заявку
             </LeadButton>
           </div>
         </div>

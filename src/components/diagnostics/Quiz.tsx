@@ -12,8 +12,6 @@ import styles from './Quiz.module.css'
 type Props = Diagnostic['quiz'] & {
   /** Откуда заявка: пишется в поле «Источник» */
   source: string
-  /** Телефон для экрана ошибки формы */
-  phone: string
 }
 
 type Answers = Record<number, number[]>
@@ -35,7 +33,6 @@ export function Quiz({
   update,
   form,
   source,
-  phone,
 }: Props) {
   const [step, setStep] = useState(0)
   const [answers, setAnswers] = useState<Answers>({})
@@ -133,7 +130,7 @@ export function Quiz({
                 <div className={styles.form}>
                   <LeadForm
                     source={source}
-                    phone={phone}
+                    kind="diagnostics"
                     title={form.title}
                     lead={form.lead}
                     submitLabel={form.submitLabel}

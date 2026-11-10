@@ -26,7 +26,10 @@ export const Dorabotka: GlobalConfig = {
     {
       type: 'tabs',
       tabs: [
-        { label: 'Первый экран', fields: [pageHeroField({ breadcrumb: true })] },
+        {
+          label: 'Первый экран',
+          fields: [pageHeroField({ breadcrumb: true, cta: 'request' })],
+        },
         {
           name: 'work',
           label: 'Что делаем',

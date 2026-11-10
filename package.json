@@ -23,6 +23,8 @@
     "seed": "tsx --env-file=.env src/seed/seed.ts",
     "seed:legal": "tsx --env-file=.env src/seed/seed-legal.ts",
     "seed:cookie": "tsx --env-file=.env src/seed/seed-cookie.ts",
+    "seed:lead-forms": "tsx --env-file=.env src/seed/seed-lead-forms.ts",
+    "seed:users": "tsx --env-file=.env src/seed/seed-users.ts",
     "seed:home": "tsx --env-file=.env src/seed/seed-home.ts",
     "seed:upp": "tsx --env-file=.env src/seed/seed-upp.ts",
     "seed:erp": "tsx --env-file=.env src/seed/seed-erp.ts",
@@ -34,7 +36,7 @@
     "seed:reviews": "tsx --env-file=.env src/seed/seed-reviews.ts",
     "seed:team": "tsx --env-file=.env src/seed/seed-team.ts",
     "seed:about": "tsx --env-file=.env src/seed/seed-about.ts",
-    "seed:all": "pnpm seed && pnpm seed:cookie && pnpm seed:legal && pnpm seed:team && pnpm seed:reviews && pnpm seed:cases && pnpm seed:publications && pnpm seed:home && pnpm seed:upp && pnpm seed:erp && pnpm seed:dorabotka && pnpm seed:support && pnpm seed:diagnostics && pnpm seed:about"
+    "seed:all": "pnpm seed && pnpm seed:cookie && pnpm seed:lead-forms && pnpm seed:legal && pnpm seed:team && pnpm seed:reviews && pnpm seed:cases && pnpm seed:publications && pnpm seed:home && pnpm seed:upp && pnpm seed:erp && pnpm seed:dorabotka && pnpm seed:support && pnpm seed:diagnostics && pnpm seed:about"
   },
   "dependencies": {
     "@iconify-json/material-symbols": "^1.2.89",

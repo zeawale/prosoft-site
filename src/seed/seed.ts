@@ -12,6 +12,8 @@ const seed = async () => {
     data: {
       phone: '+7 831 413-06-67',
       email: 'info@pm52.ru',
+      maxUrl: 'https://max.ru/u/f9LHodD0cOJs8yOrLDp-JCmUAdphEkOS6cBt_4EKo8GgKWRFGcLmolvw9hE',
+      telegramUrl: 'https://t.me/dkpm52',
       address: 'г. Нижний Новгород, Казанское ш., 12, этаж 3, кабинет 311',
       footerTagline: 'ПРО-СОФТ: внедрение 1С, Нижний Новгород',
       legalName: 'ООО «ПРО-СОФТ»',

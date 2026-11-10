@@ -141,7 +141,10 @@ export const Diagnostics: GlobalConfig = {
     {
       type: 'tabs',
       tabs: [
-        { label: 'Первый экран', fields: [pageHeroField({ breadcrumb: true })] },
+        {
+          label: 'Первый экран',
+          fields: [pageHeroField({ breadcrumb: true, cta: 'diagnostics' })],
+        },
         {
           name: 'checks',
           label: 'Что проверяем',

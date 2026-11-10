@@ -27,7 +27,10 @@ export const Erp: GlobalConfig = {
     {
       type: 'tabs',
       tabs: [
-        { label: 'Первый экран', fields: [pageHeroField({ breadcrumb: true })] },
+        {
+          label: 'Первый экран',
+          fields: [pageHeroField({ breadcrumb: true, cta: 'request' })],
+        },
         { label: 'ERP или КА', fields: [erpOrKaField()] },
         {
           name: 'map',

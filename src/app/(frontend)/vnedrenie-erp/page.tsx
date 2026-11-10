@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Proof } from '@/components/erp/Proof'
+import { RequestHeroButton } from '@/components/lead/RequestHeroButton'
 import { ProcessMap } from '@/components/erp/ProcessMap'
 import { ErpOrKa } from '@/components/sections/ErpOrKa'
 import { Faq } from '@/components/sections/Faq'
@@ -36,6 +37,9 @@ export default async function ErpPage() {
         title={hero.title}
         lead={hero.lead}
         breadcrumbs={[{ label: hero.breadcrumb }]}
+        actions={
+          <RequestHeroButton source="erp-hero" label={hero.ctaLabel} comment={hero.ctaComment} />
+        }
       />
 
       <SectionShell>

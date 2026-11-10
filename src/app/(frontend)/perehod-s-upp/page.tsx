@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import config from '@payload-config'
 import { getPayload } from 'payload'
+import { RequestHeroButton } from '@/components/lead/RequestHeroButton'
 import { DateStrip } from '@/components/sections/DateStrip'
 import { ErpOrKa } from '@/components/sections/ErpOrKa'
 import { Faq } from '@/components/sections/Faq'
@@ -48,6 +49,9 @@ export default async function UppPage() {
         title={hero.title}
         lead={hero.lead}
         breadcrumbs={[{ label: hero.breadcrumb }]}
+        actions={
+          <RequestHeroButton source="upp-hero" label={hero.ctaLabel} comment={hero.ctaComment} />
+        }
         below={<DateStrip {...dateStrip} linkHref={`#${SCENARIOS_ID}`} />}
       />
 

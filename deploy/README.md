@@ -8,7 +8,7 @@ Node 24, pnpm 11.22, nginx, certbot, swap 4 ГБ на сервере уже ес
 | Файл                                | Куда на сервере                                | Зачем                                   |
 | ----------------------------------- | ---------------------------------------------- | --------------------------------------- |
 | `nginx/prosoft-site-bootstrap.conf` | `/etc/nginx/sites-available/prosoft-site.conf` | Временный, только http, до сертификатов |
-| `nginx/prosoft-site.conf`           | туда же, вместо временного                     | Боевой: https, сведение доменов         |
+| `nginx/prosoft-site.conf`           | туда же, вместо временного                     | Боевой, с https                         |
 | `nginx/prosoft-site-proxy.conf`     | `/etc/nginx/snippets/`                         | Общие заголовки проксирования           |
 | `systemd/prosoft-site.service`      | `/etc/systemd/system/`                         | Автозапуск приложения                   |
 | `systemd/prosoft-site-backup.*`     | `/etc/systemd/system/`                         | Ежедневный бэкап в 04:00                |
@@ -86,6 +86,14 @@ ssh -L 3002:127.0.0.1:3002 root@<IP>
 
 В браузере `http://localhost:3002/admin`: создать пользователя-администратора, отправить тестовую заявку «Тест сайта, не звонить».
 
+Только после этого — учётка заказчика. Payload показывает экран первого пользователя, пока пользователей нет, поэтому сид не входит в `seed:all`:
+
+```bash
+sudo -u prosoft -H bash -lc 'cd /srv/prosoft-site && SEED_ADMIN_EMAILS=<почта заказчика> pnpm seed:users'
+```
+
+Пароль у учётки случайный. Его задают в админке (Users → учётка → «Сменить пароль») или сам заказчик через «Забыли пароль?» на странице входа: письмо уйдёт через SMTP сайта.
+
 ## 6. Бэкап
 
 ```bash
@@ -98,9 +106,9 @@ systemctl enable --now prosoft-site-backup.timer
 
 ## 7. Домен
 
-Оба домена сейчас на Тильде. Сначала решить с Дмитрием, какой главный, и снять домены с проекта Тильды только в день переключения.
+Домен про-софт.рф зарегистрирован на Reg.ru, DNS там же (`ns1.reg.ru`): записи правятся в Reg.ru. A-запись сейчас ведёт на Тильду. Снимать домен с проекта Тильды только в день переключения. Второй домен 1cprosoft.ru не переносим: его удалят.
 
-1. За сутки снизить TTL записей `@` и `www` до 300.
+1. Заранее снизить TTL: в Reg.ru он один на всю зону, блок «TTL и SOA», минимум `1h`. Переключать не раньше, чем истечёт прежний TTL.
 2. nginx без сертификатов:
 
    ```bash
@@ -110,12 +118,11 @@ systemctl enable --now prosoft-site-backup.timer
    nginx -t && systemctl reload nginx
    ```
 
-3. Поменять A-записи обоих доменов и их `www` на `<IP>`. Почтовые записи не трогать.
-4. Дождаться DNS (`dig +short xn----0tbbbfiip.xn--p1ai @8.8.8.8`) и выпустить сертификаты:
+3. Поменять A-записи `@` и `www` на `<IP>`. Остальные записи не трогать.
+4. Дождаться DNS (`dig +short xn----0tbbbfiip.xn--p1ai @8.8.8.8`) и выпустить сертификат:
 
    ```bash
    certbot certonly --webroot -w /var/www/certbot -d xn----0tbbbfiip.xn--p1ai -d www.xn----0tbbbfiip.xn--p1ai --deploy-hook 'systemctl reload nginx'
-   certbot certonly --webroot -w /var/www/certbot -d 1cprosoft.ru -d www.1cprosoft.ru --deploy-hook 'systemctl reload nginx'
    ```
 
 5. Боевой nginx:
@@ -129,11 +136,11 @@ systemctl enable --now prosoft-site-backup.timer
 
    ```bash
    curl -sI http://www.xn----0tbbbfiip.xn--p1ai/  | grep -iE '^(HTTP|location)'
-   curl -sI https://1cprosoft.ru/cases            | grep -iE '^(HTTP|location)'
+   curl -sI http://xn----0tbbbfiip.xn--p1ai/cases | grep -iE '^(HTTP|location)'
    curl -sI https://xn----0tbbbfiip.xn--p1ai/     | head -1
    ```
 
-7. Заявка с сайта доходит письмом. Вебмастер: добавить сайт и `sitemap.xml`, склейка зеркал второго домена.
+7. Заявка с сайта доходит письмом. Вебмастер: добавить сайт и `sitemap.xml`.
 
 ## Обновление
 

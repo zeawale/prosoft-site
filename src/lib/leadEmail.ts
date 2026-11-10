@@ -13,8 +13,9 @@ import { SITE_URL } from './site'
  * должен увидеть «отправлено», а не просьбу позвонить. Ошибка уходит в
  * лог сервера.
  *
- * Компания «Тест e2e» пропускается: ей пользуется e2e-тест формы. Иначе
- * каждый прогон тестов на машине с настроенным SMTP слал бы письмо в
+ * «Тест e2e» в компании или комментарии пропускается: так помечает заявки
+ * e2e-тест формы (комментарием — там, где проверяется заявка без компании).
+ * Иначе каждый прогон тестов на машине с настроенным SMTP слал бы письмо в
  * рабочий ящик.
  */
 export const notifyNewLead: CollectionAfterChangeHook<Lead> = async ({ doc, operation, req }) => {
@@ -22,12 +23,15 @@ export const notifyNewLead: CollectionAfterChangeHook<Lead> = async ({ doc, oper
 
   const to = process.env.LEADS_NOTIFY_TO
   if (!to) return doc
-  if (doc.company === 'Тест e2e') return doc
+  if (doc.company === 'Тест e2e' || doc.comment === 'Тест e2e') return doc
 
   try {
     await req.payload.sendEmail({
       to,
-      subject: `Заявка с сайта ПРО-СОФТ — ${oneLine(doc.name)}, ${oneLine(doc.company)}`,
+      subject: `Заявка с сайта ПРО-СОФТ — ${[doc.name, doc.company, doc.phone]
+        .filter(Boolean)
+        .map((s) => oneLine(String(s)))
+        .join(', ')}`,
       text: leadText(doc),
       html: leadHtml(doc),
     })
@@ -40,9 +44,9 @@ export const notifyNewLead: CollectionAfterChangeHook<Lead> = async ({ doc, oper
 
 function leadRows(doc: Lead): [string, string][] {
   const rows: [string, string][] = [
-    ['Имя', doc.name],
+    ['Имя', doc.name || '—'],
     ['Телефон', doc.phone],
-    ['Компания', doc.company],
+    ['Компания', doc.company || '—'],
   ]
   if (doc.comment) rows.push(['Комментарий', doc.comment])
   if (doc.details) rows.push(['Ответы квиза', doc.details])

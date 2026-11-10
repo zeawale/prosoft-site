@@ -31,14 +31,16 @@ async function cleanupLeads() {
   })
 }
 
-/** Открыть форму кнопкой в шапке */
-async function openForm(page: Page) {
-  await page.goto(`${BASE}/`)
-  await page.getByRole('banner').getByRole('button', { name: 'Получить диагностику' }).click()
+/** Открыть форму «Оставить заявку» кнопкой в шапке */
+async function openForm(page: Page, path = '/') {
+  await page.goto(`${BASE}${path}`)
+  await page.getByRole('banner').getByRole('button', { name: 'Оставить заявку' }).click()
   const dialog = page.getByRole('dialog')
   await expect(dialog).toBeVisible()
   return dialog
 }
+
+const SUBMIT = 'Отправить заявку'
 
 async function fill(dialog: ReturnType<Page['getByRole']>, name = 'Тест Тестович') {
   await dialog.getByLabel('Имя').fill(name)
@@ -62,16 +64,19 @@ test.describe('Форма заявки', () => {
     await expect(phone).toHaveValue('+7 999 123-45-67')
   })
 
-  test('незаполненная форма: ошибки у полей, заявка не создаётся', async ({ page }) => {
+  test('незаполненная форма: ошибка только у телефона и согласия, заявка не создаётся', async ({
+    page,
+  }) => {
     const dialog = await openForm(page)
 
     await dialog.getByLabel('Телефон').fill('999123')
-    await dialog.getByRole('button', { name: 'Получить диагностику' }).click()
+    await dialog.getByRole('button', { name: SUBMIT }).click()
 
-    await expect(dialog.getByText('Напишите, как к вам обращаться')).toBeVisible()
     await expect(dialog.getByText(/В номере 10 цифр после \+7, сейчас 6/)).toBeVisible()
-    await expect(dialog.getByText('Напишите название компании')).toBeVisible()
     await expect(dialog.getByText(/Без согласия не сможем принять заявку/)).toBeVisible()
+    // Имя и компания необязательны
+    await expect(dialog.getByText('Напишите, как к вам обращаться')).toHaveCount(0)
+    await expect(dialog.getByText('Напишите название компании')).toHaveCount(0)
 
     expect(await findLeads()).toHaveLength(0)
   })
@@ -82,7 +87,7 @@ test.describe('Форма заявки', () => {
     await fill(dialog)
     await dialog.getByLabel('Комментарий, необязательно').fill('Автотест формы заявки')
     await dialog.getByLabel(/обработку персональных данных/i).check()
-    await dialog.getByRole('button', { name: 'Получить диагностику' }).click()
+    await dialog.getByRole('button', { name: SUBMIT }).click()
 
     await expect(dialog.getByText('Заявка принята')).toBeVisible()
 
@@ -110,7 +115,7 @@ test.describe('Форма заявки', () => {
 
     await fill(dialog, 'Тест Метрики')
     await dialog.getByLabel(/обработку персональных данных/i).check()
-    await dialog.getByRole('button', { name: 'Получить диагностику' }).click()
+    await dialog.getByRole('button', { name: SUBMIT }).click()
     await expect(dialog.getByText('Заявка принята')).toBeVisible()
 
     const goals = await page.evaluate(() => {
@@ -118,6 +123,62 @@ test.describe('Форма заявки', () => {
       return (ym?.a ?? []).map((args) => Array.from(args)).filter((c) => c[1] === 'reachGoal')
     })
     expect(goals.map((c) => c[2])).toEqual(['lead_sent'])
+  })
+
+  test('хватает одного телефона: заявка без имени и компании', async ({ page }) => {
+    const dialog = await openForm(page)
+
+    await dialog.getByLabel('Телефон').fill('9997654321')
+    await dialog.getByLabel('Комментарий, необязательно').fill(COMPANY)
+    await dialog.getByLabel(/обработку персональных данных/i).check()
+    await dialog.getByRole('button', { name: SUBMIT }).click()
+    await expect(dialog.getByText('Заявка принята')).toBeVisible()
+
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'leads',
+      where: { comment: { equals: COMPANY } },
+      overrideAccess: true,
+    })
+    expect(docs).toHaveLength(1)
+    expect(docs[0].phone).toBe('+7 999 765-43-21')
+    expect(docs[0].name ?? null).toBeNull()
+    await payload.delete({
+      collection: 'leads',
+      where: { comment: { equals: COMPANY } },
+      overrideAccess: true,
+    })
+  })
+
+  test('кнопка первого экрана услуги подставляет комментарий страницы', async ({ page }) => {
+    await page.goto(`${BASE}/soprovozhdenie`)
+    await page.getByRole('main').getByRole('button', { name: 'Оставить заявку' }).first().click()
+    const dialog = page.getByRole('dialog')
+    await expect(dialog.getByText('Оставить заявку').first()).toBeVisible()
+    await expect(dialog.getByLabel('Комментарий, необязательно')).toHaveValue(/сопровождение 1С/)
+  })
+
+  test('шапка на странице услуги берёт тот же комментарий', async ({ page }) => {
+    const dialog = await openForm(page, '/perehod-s-upp')
+    await expect(dialog.getByLabel('Комментарий, необязательно')).toHaveValue(/1С:УПП/)
+  })
+
+  test('мессенджеры: Telegram получает текст из формы, MAX — ссылку на профиль', async ({
+    page,
+  }) => {
+    const dialog = await openForm(page)
+    await dialog.getByLabel('Имя').fill('Тест Мессенджера')
+    await dialog.getByLabel('Телефон').fill('9991234567')
+
+    const telegram = dialog.getByRole('link', { name: 'Отправить сообщение в Telegram' })
+    const href = await telegram.getAttribute('href')
+    expect(href).toMatch(/^https:\/\/t\.me\/[^?]+\?text=/)
+    const text = decodeURIComponent(href!.split('text=')[1])
+    expect(text).toContain('Имя: Тест Мессенджера')
+    expect(text).toContain('Телефон: +7 999 123-45-67')
+
+    const max = dialog.getByRole('link', { name: 'Отправить сообщение в MAX' })
+    expect(await max.getAttribute('href')).toMatch(/^https:\/\/max\.ru\/u\//)
   })
 
   test('Escape и клик по фону закрывают форму', async ({ page }) => {

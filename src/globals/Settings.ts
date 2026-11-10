@@ -56,12 +56,23 @@ export const Settings: GlobalConfig = {
       type: 'row',
       fields: [
         {
-          name: 'vkUrl',
+          name: 'maxUrl',
           type: 'text',
-          label: 'Ссылка ВКонтакте',
-          admin: { description: 'Иконка в подвале. Пока адреса нет, иконка стоит без ссылки' },
+          label: 'Ссылка MAX',
+          admin: {
+            description:
+              'Профиль вида https://max.ru/u/…: значок в шапке и подвале, кнопка в форме заявки. Пусто — значка и кнопки нет',
+          },
         },
-        { name: 'telegramUrl', type: 'text', label: 'Ссылка Telegram' },
+        {
+          name: 'telegramUrl',
+          type: 'text',
+          label: 'Ссылка Telegram',
+          admin: {
+            description:
+              'Профиль вида https://t.me/имя: значок в шапке и подвале, кнопка в форме заявки. Пусто — значка и кнопки нет',
+          },
+        },
       ],
     },
     {

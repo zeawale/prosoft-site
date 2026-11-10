@@ -109,6 +109,7 @@ export interface Config {
     'cases-page': CasesPage;
     about: About;
     settings: Setting;
+    'lead-forms': LeadForm;
     'cookie-banner': CookieBanner;
   };
   globalsSelect: {
@@ -121,6 +122,7 @@ export interface Config {
     'cases-page': CasesPageSelect<false> | CasesPageSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
     settings: SettingsSelect<false> | SettingsSelect<true>;
+    'lead-forms': LeadFormsSelect<false> | LeadFormsSelect<true>;
     'cookie-banner': CookieBannerSelect<false> | CookieBannerSelect<true>;
   };
   locale: null;
@@ -202,9 +204,9 @@ export interface Media {
  */
 export interface Lead {
   id: number;
-  name: string;
+  name?: string | null;
   phone: string;
-  company: string;
+  company?: string | null;
   comment?: string | null;
   /**
    * Что человек выбрал в подборе сценария перед отправкой заявки
@@ -1035,6 +1037,11 @@ export interface Upp {
     breadcrumb: string;
     title: string;
     lead?: string | null;
+    ctaLabel: string;
+    /**
+     * Подставляется в поле «Комментарий», когда форму открывают кнопкой первого экрана или кнопкой «Оставить заявку» в шапке на этой странице. Человек может его стереть или дописать
+     */
+    ctaComment?: string | null;
   };
   dateStrip: {
     label: string;
@@ -1221,6 +1228,11 @@ export interface Erp {
     breadcrumb: string;
     title: string;
     lead?: string | null;
+    ctaLabel: string;
+    /**
+     * Подставляется в поле «Комментарий», когда форму открывают кнопкой первого экрана или кнопкой «Оставить заявку» в шапке на этой странице. Человек может его стереть или дописать
+     */
+    ctaComment?: string | null;
   };
   erpOrKa: {
     title: string;
@@ -1410,6 +1422,11 @@ export interface Dorabotka {
     breadcrumb: string;
     title: string;
     lead?: string | null;
+    ctaLabel: string;
+    /**
+     * Подставляется в поле «Комментарий», когда форму открывают кнопкой первого экрана или кнопкой «Оставить заявку» в шапке на этой странице. Человек может его стереть или дописать
+     */
+    ctaComment?: string | null;
   };
   work: {
     title: string;
@@ -1721,6 +1738,11 @@ export interface Support {
     breadcrumb: string;
     title: string;
     lead?: string | null;
+    ctaLabel: string;
+    /**
+     * Подставляется в поле «Комментарий», когда форму открывают кнопкой первого экрана или кнопкой «Оставить заявку» в шапке на этой странице. Человек может его стереть или дописать
+     */
+    ctaComment?: string | null;
   };
   included: {
     title: string;
@@ -1832,6 +1854,7 @@ export interface Diagnostic {
     breadcrumb: string;
     title: string;
     lead?: string | null;
+    ctaLabel: string;
   };
   checks: {
     title: string;
@@ -2258,9 +2281,12 @@ export interface Setting {
   phoneRaw?: string | null;
   email: string;
   /**
-   * Иконка в подвале. Пока адреса нет, иконка стоит без ссылки
+   * Профиль вида https://max.ru/u/…: значок в шапке и подвале, кнопка в форме заявки. Пусто — значка и кнопки нет
    */
-  vkUrl?: string | null;
+  maxUrl?: string | null;
+  /**
+   * Профиль вида https://t.me/имя: значок в шапке и подвале, кнопка в форме заявки. Пусто — значка и кнопки нет
+   */
   telegramUrl?: string | null;
   address: string;
   footerTagline: string;
@@ -2268,6 +2294,40 @@ export interface Setting {
   inn: string;
   ogrn: string;
   accreditation: string;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "lead-forms".
+ */
+export interface LeadForm {
+  id: number;
+  diagnostics: {
+    title: string;
+    lead: string;
+    /**
+     * Подставляется в поле «Комментарий» при открытии формы, человек может его стереть или дописать. Пусто — поле пустое
+     */
+    comment?: string | null;
+    successText: string;
+  };
+  request: {
+    title: string;
+    lead: string;
+    /**
+     * Подставляется в поле «Комментарий» при открытии формы, человек может его стереть или дописать. Пусто — поле пустое
+     */
+    comment?: string | null;
+    successText: string;
+  };
+  submitLabel: string;
+  maxLabel: string;
+  telegramLabel: string;
+  /**
+   * Дальше в сообщении идут комментарий и заполненные контакты. Telegram подставляет текст в чат сам, MAX так не умеет: текст копируется в буфер обмена. Ссылки на профили — в «Реквизитах и контактах»
+   */
+  messageIntro: string;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2494,6 +2554,8 @@ export interface UppSelect<T extends boolean = true> {
         breadcrumb?: T;
         title?: T;
         lead?: T;
+        ctaLabel?: T;
+        ctaComment?: T;
       };
   dateStrip?:
     | T
@@ -2671,6 +2733,8 @@ export interface ErpSelect<T extends boolean = true> {
         breadcrumb?: T;
         title?: T;
         lead?: T;
+        ctaLabel?: T;
+        ctaComment?: T;
       };
   erpOrKa?:
     | T
@@ -2820,6 +2884,8 @@ export interface DorabotkaSelect<T extends boolean = true> {
         breadcrumb?: T;
         title?: T;
         lead?: T;
+        ctaLabel?: T;
+        ctaComment?: T;
       };
   work?:
     | T
@@ -3031,6 +3097,8 @@ export interface SupportSelect<T extends boolean = true> {
         breadcrumb?: T;
         title?: T;
         lead?: T;
+        ctaLabel?: T;
+        ctaComment?: T;
       };
   included?:
     | T
@@ -3113,6 +3181,7 @@ export interface DiagnosticsSelect<T extends boolean = true> {
         breadcrumb?: T;
         title?: T;
         lead?: T;
+        ctaLabel?: T;
       };
   checks?:
     | T
@@ -3470,7 +3539,7 @@ export interface SettingsSelect<T extends boolean = true> {
   phone?: T;
   phoneRaw?: T;
   email?: T;
-  vkUrl?: T;
+  maxUrl?: T;
   telegramUrl?: T;
   address?: T;
   footerTagline?: T;
@@ -3478,6 +3547,35 @@ export interface SettingsSelect<T extends boolean = true> {
   inn?: T;
   ogrn?: T;
   accreditation?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "lead-forms_select".
+ */
+export interface LeadFormsSelect<T extends boolean = true> {
+  diagnostics?:
+    | T
+    | {
+        title?: T;
+        lead?: T;
+        comment?: T;
+        successText?: T;
+      };
+  request?:
+    | T
+    | {
+        title?: T;
+        lead?: T;
+        comment?: T;
+        successText?: T;
+      };
+  submitLabel?: T;
+  maxLabel?: T;
+  telegramLabel?: T;
+  messageIntro?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

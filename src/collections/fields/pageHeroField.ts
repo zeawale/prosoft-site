@@ -8,6 +8,12 @@ type Options = {
   actions?: boolean
   /** Строки фактов под кнопками */
   facts?: boolean
+  /**
+   * Кнопка формы под подзаголовком. request — «Оставить заявку» с
+   * комментарием под страницу, diagnostics — форма диагностики со своим
+   * комментарием из «Форм заявки»
+   */
+  cta?: 'request' | 'diagnostics'
 }
 
 /** Первый экран для компонента PageHero */
@@ -15,6 +21,7 @@ export const pageHeroField = ({
   breadcrumb = false,
   actions = false,
   facts = false,
+  cta,
 }: Options = {}): GroupField => {
   const fields: Field[] = []
   if (breadcrumb) {
@@ -32,6 +39,20 @@ export const pageHeroField = ({
         { name: 'secondaryLabel', type: 'text', label: 'Вторая кнопка' },
         routeField({ name: 'secondaryRoute', label: 'Вторая кнопка ведёт на' }),
       ],
+    })
+  }
+  if (cta) {
+    fields.push({ name: 'ctaLabel', type: 'text', label: 'Кнопка формы', required: true })
+  }
+  if (cta === 'request') {
+    fields.push({
+      name: 'ctaComment',
+      type: 'textarea',
+      label: 'Комментарий в форме',
+      admin: {
+        description:
+          'Подставляется в поле «Комментарий», когда форму открывают кнопкой первого экрана или кнопкой «Оставить заявку» в шапке на этой странице. Человек может его стереть или дописать',
+      },
     })
   }
   if (facts) {

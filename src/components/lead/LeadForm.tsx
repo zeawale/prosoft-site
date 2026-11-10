@@ -5,16 +5,22 @@ import { submitLead } from '@/app/actions/submitLead'
 import { reachGoal } from '@/components/analytics/YandexMetrika'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
+import { MessengerLogo } from '@/components/ui/MessengerLogo'
 import { TextLink } from '@/components/ui/TextLink'
 import { formatPhone, phoneProblem } from '@/lib/leads'
+import { buildLeadMessage, messengerHref, type Messenger } from '@/lib/messenger'
 import { ROUTES } from '@/lib/navigation'
+import { useLeadConfig, type LeadKind } from './LeadModalProvider'
 import styles from './LeadForm.module.css'
 
 type Props = {
   /** Откуда заявка: пишется в поле «Источник» */
   source: string
-  /** Телефон для экрана ошибки */
-  phone: string
+  /** Какая форма: тексты берутся из «Форм заявки» */
+  kind?: LeadKind
+  /** Комментарий в поле при открытии */
+  comment?: string
+  /** Свои тексты вместо текстов формы: у квиза они в глобале диагностики */
   title?: string
   lead?: string
   submitLabel?: string
@@ -29,31 +35,40 @@ type Props = {
 type Status = 'idle' | 'sending' | 'sent' | 'failed'
 type Errors = Record<string, string>
 
+/** Обязателен только телефон, остальные поля по желанию */
 const check = (name: string, value: string): string | undefined => {
-  if (name === 'name' && value.trim().length < 2) return 'Напишите, как к вам обращаться'
   if (name === 'phone') return phoneProblem(value) ?? undefined
-  if (name === 'company' && value.trim().length < 2) return 'Напишите название компании'
   return undefined
 }
 
 /**
- * Форма заявки на диагностику: в модалке, на странице диагностики и в
- * результате квиза. Проверка при уходе с поля и при отправке; при ошибке сети
- * данные остаются в форме, и отправить можно ещё раз.
+ * Форма заявки: в модалке, на странице диагностики и в результате квиза.
+ * Проверка при уходе с поля и при отправке; при ошибке сети данные остаются в
+ * форме, и отправить можно ещё раз.
+ *
+ * Под кнопкой отправки — мессенджеры: открывают чат с текстом из полей
+ * формы. Это сообщение от самого человека, на сервер сайта оно не уходит,
+ * поэтому ни телефона, ни галочки согласия для него не нужно.
  */
 export function LeadForm({
   source,
-  phone,
-  title = 'Получить диагностику за 2 дня',
-  lead = 'Перезвоним и договоримся о времени диагностики. Бесплатно, отчёт на руки.',
-  submitLabel = 'Получить диагностику',
+  kind = 'diagnostics',
+  comment = '',
+  title,
+  lead,
+  submitLabel,
   details,
   titleId,
   onDone,
 }: Props) {
+  const config = useLeadConfig()
+  const texts = config[kind]
+  const formTitle = title ?? texts.title
+  const { messengers } = config
+
   const [status, setStatus] = useState<Status>('idle')
   const [errors, setErrors] = useState<Errors>({})
-  const [values, setValues] = useState({ name: '', phone: '', company: '', comment: '' })
+  const [values, setValues] = useState({ name: '', phone: '', company: '', comment })
   const [consent, setConsent] = useState(false)
   const lastData = useRef<FormData | null>(null)
 
@@ -105,6 +120,28 @@ export function LeadForm({
     void send(new FormData(e.currentTarget))
   }
 
+  const message = buildLeadMessage({ intro: messengers.intro, ...values, details })
+
+  /**
+   * Ссылка открывает чат сама. Здесь — то, чего ссылка не умеет: текст в буфер
+   * (MAX не подставляет его по ссылке, Telegram — на случай старого клиента)
+   * и цель Метрики, чтобы видеть обращения через мессенджеры. Подсказки про
+   * буфер на экране нет: Ника убрала её 2026-11-10
+   */
+  const onMessenger = (messenger: Messenger) => {
+    void navigator.clipboard?.writeText(message).catch(() => {})
+    reachGoal(`messenger_${messenger}`)
+  }
+
+  const chats = [
+    { messenger: 'max' as const, url: messengers.maxUrl, label: messengers.maxLabel },
+    {
+      messenger: 'telegram' as const,
+      url: messengers.telegramUrl,
+      label: messengers.telegramLabel,
+    },
+  ].filter((chat): chat is typeof chat & { url: string } => Boolean(chat.url))
+
   if (status === 'sent') {
     return (
       <div className={`${styles.status} ${styles.success}`} role="status">
@@ -112,9 +149,7 @@ export function LeadForm({
         <p id={titleId} className="h4">
           Заявка принята
         </p>
-        <p className="body-m">
-          Перезвоним в течение рабочего дня и договоримся о времени диагностики.
-        </p>
+        <p className="body-m">{texts.successText}</p>
         <Button
           variant="secondary"
           size="M"
@@ -138,7 +173,7 @@ export function LeadForm({
         </p>
         <p className="body-m">
           Связь с сервером прервалась, данные в форме сохранились. Отправьте ещё раз или позвоните:{' '}
-          {phone}.
+          {config.phone}.
         </p>
         <Button
           size="M"
@@ -156,16 +191,16 @@ export function LeadForm({
     <form className={styles.form} onSubmit={onSubmit} noValidate>
       <div className={styles.head}>
         <p id={titleId} className={`h4 ${styles.title}`}>
-          {title}
+          {formTitle}
         </p>
-        <p className={`body-s ${styles.lead}`}>{lead}</p>
+        <p className={`body-s ${styles.lead}`}>{lead ?? texts.lead}</p>
       </div>
 
       <input type="hidden" name="page" value={source} />
       {details && <input type="hidden" name="details" value={details} />}
 
       <div className={styles.fields}>
-        <Field label="Имя" id={`${source}-name`} error={errors.name}>
+        <Field label="Имя, необязательно" id={`${source}-name`} error={errors.name}>
           <input
             id={`${source}-name`}
             name="name"
@@ -175,7 +210,6 @@ export function LeadForm({
             className={styles.control}
             value={values.name}
             onChange={(e) => update('name', e.target.value)}
-            onBlur={onBlur}
             aria-invalid={Boolean(errors.name)}
           />
         </Field>
@@ -193,10 +227,11 @@ export function LeadForm({
             onChange={(e) => update('phone', formatPhone(e.target.value))}
             onBlur={onBlur}
             aria-invalid={Boolean(errors.phone)}
+            aria-required="true"
           />
         </Field>
 
-        <Field label="Компания" id={`${source}-company`} error={errors.company}>
+        <Field label="Компания, необязательно" id={`${source}-company`} error={errors.company}>
           <input
             id={`${source}-company`}
             name="company"
@@ -206,7 +241,6 @@ export function LeadForm({
             className={styles.control}
             value={values.company}
             onChange={(e) => update('company', e.target.value)}
-            onBlur={onBlur}
             aria-invalid={Boolean(errors.company)}
           />
         </Field>
@@ -245,8 +279,26 @@ export function LeadForm({
       </div>
 
       <Button type="submit" fill disabled={status === 'sending'}>
-        {status === 'sending' ? 'Отправляем…' : submitLabel}
+        {status === 'sending' ? 'Отправляем…' : (submitLabel ?? config.submitLabel)}
       </Button>
+
+      {chats.length > 0 && (
+        <div className={styles.messengers}>
+          {chats.map(({ messenger, url, label }) => (
+            <a
+              key={messenger}
+              href={messengerHref(messenger, url, message)}
+              target="_blank"
+              rel="noreferrer"
+              className={`label-16 ${styles.chat} ${styles[messenger]}`}
+              onClick={() => onMessenger(messenger)}
+            >
+              <MessengerLogo name={messenger} size={20} />
+              <span>{label}</span>
+            </a>
+          ))}
+        </div>
+      )}
     </form>
   )
 }

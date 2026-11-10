@@ -327,7 +327,7 @@
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "phone": {
@@ -341,7 +341,7 @@
           "name": "company",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "comment": {
@@ -4178,6 +4178,20 @@
           "notNull": false,
           "autoincrement": false
         },
+        "hero_cta_label": {
+          "name": "hero_cta_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "hero_cta_comment": {
+          "name": "hero_cta_comment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "date_strip_label": {
           "name": "date_strip_label",
           "type": "text",
@@ -5257,6 +5271,20 @@
         },
         "hero_lead": {
           "name": "hero_lead",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "hero_cta_label": {
+          "name": "hero_cta_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "hero_cta_comment": {
+          "name": "hero_cta_comment",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -6707,6 +6735,20 @@
           "notNull": false,
           "autoincrement": false
         },
+        "hero_cta_label": {
+          "name": "hero_cta_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "hero_cta_comment": {
+          "name": "hero_cta_comment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "work_title": {
           "name": "work_title",
           "type": "text",
@@ -7506,6 +7548,20 @@
         },
         "hero_lead": {
           "name": "hero_lead",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "hero_cta_label": {
+          "name": "hero_cta_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "hero_cta_comment": {
+          "name": "hero_cta_comment",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -8523,6 +8579,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false,
+          "autoincrement": false
+        },
+        "hero_cta_label": {
+          "name": "hero_cta_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
           "autoincrement": false
         },
         "checks_title": {
@@ -9892,8 +9955,8 @@
           "autoincrement": false,
           "default": "'info@pm52.ru'"
         },
-        "vk_url": {
-          "name": "vk_url",
+        "max_url": {
+          "name": "max_url",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -9953,6 +10016,133 @@
           "notNull": true,
           "autoincrement": false,
           "default": "'Аккредитованная ИТ-компания, реестр Минцифры России'"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "lead_forms": {
+      "name": "lead_forms",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "diagnostics_title": {
+          "name": "diagnostics_title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Получить диагностику за 2 дня'"
+        },
+        "diagnostics_lead": {
+          "name": "diagnostics_lead",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Перезвоним и договоримся о времени диагностики. Бесплатно, отчёт на руки.'"
+        },
+        "diagnostics_comment": {
+          "name": "diagnostics_comment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'Хочу записаться на бесплатную диагностику 1С за 2 дня.'"
+        },
+        "diagnostics_success_text": {
+          "name": "diagnostics_success_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Перезвоним в течение рабочего дня и договоримся о времени диагностики.'"
+        },
+        "request_title": {
+          "name": "request_title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Оставить заявку'"
+        },
+        "request_lead": {
+          "name": "request_lead",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Перезвоним в течение рабочего дня и ответим на вопросы.'"
+        },
+        "request_comment": {
+          "name": "request_comment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "''"
+        },
+        "request_success_text": {
+          "name": "request_success_text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Перезвоним в течение рабочего дня и ответим на вопросы.'"
+        },
+        "submit_label": {
+          "name": "submit_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Отправить заявку'"
+        },
+        "max_label": {
+          "name": "max_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Отправить сообщение в MAX'"
+        },
+        "telegram_label": {
+          "name": "telegram_label",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Отправить сообщение в Telegram'"
+        },
+        "message_intro": {
+          "name": "message_intro",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'Здравствуйте! Пишу с сайта про-софт.рф.'"
         },
         "updated_at": {
           "name": "updated_at",
@@ -10056,6 +10246,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "31c3bc72-f9b6-42a0-8f12-49c16ac5b0c6",
+  "id": "7431f22d-5731-4925-83a0-7bd83e3f5916",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

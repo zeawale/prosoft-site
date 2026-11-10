@@ -24,7 +24,10 @@ export const Support: GlobalConfig = {
     {
       type: 'tabs',
       tabs: [
-        { label: 'Первый экран', fields: [pageHeroField({ breadcrumb: true })] },
+        {
+          label: 'Первый экран',
+          fields: [pageHeroField({ breadcrumb: true, cta: 'request' })],
+        },
         {
           name: 'included',
           label: 'Что входит',

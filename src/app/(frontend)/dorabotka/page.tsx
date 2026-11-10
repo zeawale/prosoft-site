@@ -4,6 +4,7 @@ import { FeatureGrid } from '@/components/dorabotka/FeatureGrid'
 import { IntegrationGrid } from '@/components/dorabotka/IntegrationGrid'
 import { ProofSide } from '@/components/dorabotka/ProofSide'
 import { LeadButton } from '@/components/lead/LeadButton'
+import { RequestHeroButton } from '@/components/lead/RequestHeroButton'
 import { CaseCard } from '@/components/sections/CaseCard'
 import { PageHero } from '@/components/sections/PageHero'
 import { ReportSample } from '@/components/sections/ReportSample'
@@ -50,6 +51,13 @@ export default async function DorabotkaPage() {
         title={hero.title}
         lead={hero.lead}
         breadcrumbs={[{ label: hero.breadcrumb }]}
+        actions={
+          <RequestHeroButton
+            source="dorabotka-hero"
+            label={hero.ctaLabel}
+            comment={hero.ctaComment}
+          />
+        }
       />
 
       <SectionShell>

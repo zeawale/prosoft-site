@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { FeatureGrid } from '@/components/dorabotka/FeatureGrid'
+import { RequestHeroButton } from '@/components/lead/RequestHeroButton'
 import { PageHero } from '@/components/sections/PageHero'
 import { SectionShell } from '@/components/sections/SectionShell'
 import { StageTable } from '@/components/sections/StageTable'
@@ -29,6 +30,13 @@ export default async function SupportPage() {
         title={hero.title}
         lead={hero.lead}
         breadcrumbs={[{ label: hero.breadcrumb }]}
+        actions={
+          <RequestHeroButton
+            source="support-hero"
+            label={hero.ctaLabel}
+            comment={hero.ctaComment}
+          />
+        }
       />
 
       <SectionShell>

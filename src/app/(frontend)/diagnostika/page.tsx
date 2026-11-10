@@ -7,7 +7,7 @@ import { ReportSample } from '@/components/sections/ReportSample'
 import { SectionShell } from '@/components/sections/SectionShell'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import { ROUTES } from '@/lib/navigation'
-import { getPageGlobal, getSettings } from '@/lib/queries'
+import { getPageGlobal } from '@/lib/queries'
 import styles from './page.module.css'
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -20,11 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function DiagnosticsPage() {
-  const [page, settings] = await Promise.all([
-    getPageGlobal('diagnostics', ['hero', 'checks', 'report', 'quiz']),
-    getSettings(),
-  ])
-
+  const page = await getPageGlobal('diagnostics', ['hero', 'checks', 'report', 'quiz'])
   const { hero, checks, report, quiz } = page
 
   return (
@@ -34,6 +30,7 @@ export default async function DiagnosticsPage() {
         title={hero.title}
         lead={hero.lead}
         breadcrumbs={[{ label: hero.breadcrumb }]}
+        actions={<LeadButton source="diagnostics-hero">{hero.ctaLabel}</LeadButton>}
       />
 
       <SectionShell>
@@ -49,7 +46,7 @@ export default async function DiagnosticsPage() {
         </LeadButton>
       </SectionShell>
 
-      <Quiz {...quiz} source="diagnostics-quiz" phone={settings.phone} />
+      <Quiz {...quiz} source="diagnostics-quiz" />
     </main>
   )
 }

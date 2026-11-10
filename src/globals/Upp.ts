@@ -29,7 +29,7 @@ export const Upp: GlobalConfig = {
       tabs: [
         {
           label: 'Первый экран',
-          fields: [pageHeroField({ breadcrumb: true }), dateStripField()],
+          fields: [pageHeroField({ breadcrumb: true, cta: 'request' }), dateStripField()],
         },
         {
           name: 'scenarios',
